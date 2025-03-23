@@ -17,7 +17,7 @@ class SignUpViewModel @Inject constructor(override val foodApi: FoodApi) : BaseA
     private val _uiState = MutableStateFlow<SignupEvent>(SignupEvent.Nothing)
     val uiState = _uiState.asStateFlow()
 
-    private val _navigationEvent = MutableSharedFlow<SigupNavigationEvent>()
+    private val _navigationEvent = MutableSharedFlow<SignupNavigationEvent>()
     val navigationEvent = _navigationEvent.asSharedFlow()
 
     private val _email = MutableStateFlow("")
@@ -54,7 +54,7 @@ class SignUpViewModel @Inject constructor(override val foodApi: FoodApi) : BaseA
                 )
                 if (response.token.isNotEmpty()) {
                     _uiState.value = SignupEvent.Success
-                    _navigationEvent.emit(SigupNavigationEvent.NavigateToHome)
+                    _navigationEvent.emit(SignupNavigationEvent.NavigateToHome)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -67,7 +67,7 @@ class SignUpViewModel @Inject constructor(override val foodApi: FoodApi) : BaseA
 
     fun onLoginClicked() {
         viewModelScope.launch {
-            _navigationEvent.emit(SigupNavigationEvent.NavigateToLogin)
+            _navigationEvent.emit(SignupNavigationEvent.NavigateToLogin)
         }
     }
 
@@ -92,13 +92,13 @@ class SignUpViewModel @Inject constructor(override val foodApi: FoodApi) : BaseA
     override fun onSocialLoginSuccess(token: String) {
         viewModelScope.launch {
             _uiState.value = SignupEvent.Success
-            _navigationEvent.emit(SigupNavigationEvent.NavigateToHome)
+            _navigationEvent.emit(SignupNavigationEvent.NavigateToHome)
         }
     }
 
-    sealed class SigupNavigationEvent {
-        object NavigateToLogin : SigupNavigationEvent()
-        object NavigateToHome : SigupNavigationEvent()
+    sealed class SignupNavigationEvent {
+        object NavigateToLogin : SignupNavigationEvent()
+        object NavigateToHome : SignupNavigationEvent()
     }
 
     sealed class SignupEvent {

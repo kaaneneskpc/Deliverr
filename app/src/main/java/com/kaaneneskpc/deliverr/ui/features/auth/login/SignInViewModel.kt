@@ -20,7 +20,7 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
     private val _uiState = MutableStateFlow<SignInEvent>(SignInEvent.Nothing)
     val uiState = _uiState.asStateFlow()
 
-    private val _navigationEvent = MutableSharedFlow<SigInNavigationEvent>()
+    private val _navigationEvent = MutableSharedFlow<SignInNavigationEvent>()
     val navigationEvent = _navigationEvent.asSharedFlow()
 
     private val _email = MutableStateFlow("")
@@ -48,7 +48,7 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
                 )
                 if (response.token.isNotEmpty()) {
                     _uiState.value = SignInEvent.Success
-                    _navigationEvent.emit(SigInNavigationEvent.NavigateToHome)
+                    _navigationEvent.emit(SignInNavigationEvent.NavigateToHome)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -61,13 +61,13 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
 
     fun onSignUpClicked() {
         viewModelScope.launch {
-            _navigationEvent.emit(SigInNavigationEvent.NavigateToSignUp)
+            _navigationEvent.emit(SignInNavigationEvent.NavigateToSignUp)
         }
     }
 
-    sealed class SigInNavigationEvent {
-        object NavigateToSignUp : SigInNavigationEvent()
-        object NavigateToHome : SigInNavigationEvent()
+    sealed class SignInNavigationEvent {
+        object NavigateToSignUp : SignInNavigationEvent()
+        object NavigateToHome : SignInNavigationEvent()
     }
 
     sealed class SignInEvent {
@@ -98,7 +98,7 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
     override fun onSocialLoginSuccess(token: String) {
         viewModelScope.launch {
             _uiState.value = SignInEvent.Success
-            _navigationEvent.emit(SigInNavigationEvent.NavigateToHome)
+            _navigationEvent.emit(SignInNavigationEvent.NavigateToHome)
         }
     }
 }
