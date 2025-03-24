@@ -1,4 +1,4 @@
-package com.kaaneneskpc.deliverr.data.models
+package com.kaaneneskpc.deliverr.data.models.response.auth
 
 data class GoogleAccount(
     val token: String,

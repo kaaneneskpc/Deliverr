@@ -13,12 +13,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -36,15 +42,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.kaaneneskpc.deliverr.R
-import com.kaaneneskpc.deliverr.ui.GroupSocialButtons
+import com.kaaneneskpc.deliverr.common.BasicDialog
+import com.kaaneneskpc.deliverr.common.GroupSocialButtons
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
 import com.kaaneneskpc.deliverr.ui.theme.Orange
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthScreen(navController: NavController, viewModel: AuthScreenViewModel = hiltViewModel()) {
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    var showDialog by remember { mutableStateOf(false) }
     val imageSize = remember {
         mutableStateOf(IntSize.Zero)
     }
@@ -67,6 +79,10 @@ fun AuthScreen(navController: NavController, viewModel: AuthScreenViewModel = hi
 
                 is AuthScreenViewModel.AuthNavigationEvent.NavigateToSignUp -> {
                     navController.navigate(SignUp)
+                }
+
+                is AuthScreenViewModel.AuthNavigationEvent.ShowErrorDialog -> {
+                    showDialog = true
                 }
             }
         }
@@ -158,6 +174,21 @@ fun AuthScreen(navController: NavController, viewModel: AuthScreenViewModel = hi
             }) {
                 Text(text = stringResource(id = R.string.alread_have_account), color = Color.White)
             }
+        }
+    }
+
+    if (showDialog) {
+        ModalBottomSheet(onDismissRequest = { showDialog = false }, sheetState = sheetState) {
+            BasicDialog(
+                title = viewModel.error,
+                description = viewModel.errorDescription,
+                onClick = {
+                    scope.launch {
+                        sheetState.hide()
+                        showDialog = false
+                    }
+                }
+            )
         }
     }
 }

@@ -43,8 +43,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.kaaneneskpc.deliverr.R
-import com.kaaneneskpc.deliverr.ui.DeliverrTextField
-import com.kaaneneskpc.deliverr.ui.GroupSocialButtons
+import com.kaaneneskpc.deliverr.common.DeliverrTextField
+import com.kaaneneskpc.deliverr.common.GroupSocialButtons
 import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
@@ -85,7 +85,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
         LaunchedEffect(true) {
             viewModel.navigationEvent.collectLatest { event ->
                 when (event) {
-                    is SignUpViewModel.SigupNavigationEvent.NavigateToHome -> {
+                    is SignUpViewModel.SignupNavigationEvent.NavigateToHome -> {
                         navController.navigate(Home) {
                             popUpTo(AuthScreen) {
                                 inclusive = true
@@ -93,7 +93,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                         }
                     }
 
-                    is SignUpViewModel.SigupNavigationEvent.NavigateToLogin -> {
+                    is SignUpViewModel.SignupNavigationEvent.NavigateToLogin -> {
                         navController.navigate(Login)
                     }
                 }

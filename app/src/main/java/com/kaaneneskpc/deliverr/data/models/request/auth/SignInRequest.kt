@@ -1,4 +1,4 @@
-package com.kaaneneskpc.deliverr.data.models
+package com.kaaneneskpc.deliverr.data.models.request.auth
 
 data class SignInRequest(
     val email: String,

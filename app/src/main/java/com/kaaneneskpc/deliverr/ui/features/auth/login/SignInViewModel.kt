@@ -2,7 +2,8 @@ package com.kaaneneskpc.deliverr.ui.features.auth.login
 
 import androidx.lifecycle.viewModelScope
 import com.kaaneneskpc.deliverr.data.FoodApi
-import com.kaaneneskpc.deliverr.data.models.SignInRequest
+import com.kaaneneskpc.deliverr.data.models.request.auth.SignInRequest
+import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreenViewModel
 import com.kaaneneskpc.deliverr.ui.features.auth.BaseAuthViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -46,7 +47,7 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
                         email = email.value, password = password.value
                     )
                 )
-                if (response.token.isNotEmpty()) {
+                if (response.body()?.token?.isNotEmpty() == true) {
                     _uiState.value = SignInEvent.Success
                     _navigationEvent.emit(SignInNavigationEvent.NavigateToHome)
                 }
@@ -85,12 +86,16 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
 
     override fun onGoogleError(msg: String) {
         viewModelScope.launch {
+            errorDescription = msg
+            error = "Google Sign In Failed"
             _uiState.value = SignInEvent.Error
         }
     }
 
     override fun onFacebookError(msg: String) {
         viewModelScope.launch {
+            errorDescription = msg
+            error = "Facebook Sign In Failed"
             _uiState.value = SignInEvent.Error
         }
     }

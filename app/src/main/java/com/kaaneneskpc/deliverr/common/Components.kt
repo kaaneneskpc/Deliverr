@@ -1,5 +1,6 @@
-package com.kaaneneskpc.deliverr.ui
+package com.kaaneneskpc.deliverr.common
 
+import android.annotation.SuppressLint
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -20,12 +21,14 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
@@ -40,6 +43,7 @@ import com.kaaneneskpc.deliverr.ui.features.auth.BaseAuthViewModel
 import com.kaaneneskpc.deliverr.ui.theme.Orange
 
 
+@SuppressLint("ContextCastToActivity")
 @Composable
 fun GroupSocialButtons(
     color: Color = Color.White,
@@ -80,12 +84,12 @@ fun GroupSocialButtons(
             SocialButton(
                 icon = R.drawable.ic_facebook,
                 title = R.string.sign_with_facebook,
-                onClick = { viewModel.onFacebookClicked(context) }
+                onClick = { /* viewModel.onFacebookClicked(context) */ }
             )
             SocialButton(
                 icon = R.drawable.ic_google,
                 title = R.string.sign_with_google,
-                onClick = { viewModel.onGoogleClicked(context) }
+                onClick = { /* viewModel.onGoogleClicked(context) */ }
             )
         }
 
@@ -183,5 +187,40 @@ fun DeliverrTextField(
             shape,
             colors
         )
+    }
+}
+
+@Composable
+fun BasicDialog(title: String, description: String, onClick: () -> Unit) {
+    Surface {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = title,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.size(8.dp))
+            Text(
+                text = description,
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+            Button(
+                onClick = onClick,
+                colors = ButtonDefaults.buttonColors(containerColor = Orange),
+                shape = RoundedCornerShape(16.dp),
+
+                ) {
+                Text(
+                    text = stringResource(id = R.string.ok),
+                    color = Color.White,
+                    modifier = Modifier.padding(horizontal = 32.dp)
+                )
+            }
+        }
     }
 }
