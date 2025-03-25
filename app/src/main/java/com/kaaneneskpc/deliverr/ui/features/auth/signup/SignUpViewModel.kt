@@ -1,6 +1,7 @@
 package com.kaaneneskpc.deliverr.ui.features.auth.signup
 
 import androidx.lifecycle.viewModelScope
+import com.kaaneneskpc.deliverr.DeliverrSession
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.request.auth.SignUpRequest
 import com.kaaneneskpc.deliverr.data.remote.ApiResponse
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(override val foodApi: FoodApi) : BaseAuthViewModel(foodApi) {
+class SignUpViewModel @Inject constructor(override val foodApi: FoodApi, val session: DeliverrSession) : BaseAuthViewModel(foodApi) {
     private val _uiState = MutableStateFlow<SignupEvent>(SignupEvent.Nothing)
     val uiState = _uiState.asStateFlow()
 
@@ -59,7 +60,7 @@ class SignUpViewModel @Inject constructor(override val foodApi: FoodApi) : BaseA
                 when (response) {
                     is ApiResponse.Success -> {
                         _uiState.value = SignupEvent.Success
-                        // session.storeToken(response.data.token)
+                        session.storeToken(response.data.token)
                         _navigationEvent.emit(SignupNavigationEvent.NavigateToHome)
                     }
 
@@ -117,7 +118,7 @@ class SignUpViewModel @Inject constructor(override val foodApi: FoodApi) : BaseA
 
     override fun onSocialLoginSuccess(token: String) {
         viewModelScope.launch {
-            // session.storeToken(token)
+            session.storeToken(token)
             _uiState.value = SignupEvent.Success
             _navigationEvent.emit(SignupNavigationEvent.NavigateToHome)
         }

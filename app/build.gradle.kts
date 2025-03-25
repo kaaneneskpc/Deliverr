@@ -74,4 +74,6 @@ dependencies {
     implementation (libs.googleid)
     implementation (libs.facebook.login)
     implementation(libs.core.splashscreen)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }

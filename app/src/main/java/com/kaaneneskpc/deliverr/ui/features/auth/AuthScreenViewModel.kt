@@ -2,6 +2,7 @@ package com.kaaneneskpc.deliverr.ui.features.auth
 
 
 import androidx.lifecycle.viewModelScope
+import com.kaaneneskpc.deliverr.DeliverrSession
 import com.kaaneneskpc.deliverr.data.FoodApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthScreenViewModel @Inject constructor(override val foodApi: FoodApi) :
+class AuthScreenViewModel @Inject constructor(override val foodApi: FoodApi, val session: DeliverrSession) :
     BaseAuthViewModel(foodApi) {
 
     private val _uiState = MutableStateFlow<AuthEvent>(AuthEvent.Nothing)
@@ -61,6 +62,7 @@ class AuthScreenViewModel @Inject constructor(override val foodApi: FoodApi) :
 
     override fun onSocialLoginSuccess(token: String) {
         viewModelScope.launch {
+            session.storeToken(token)
             _uiState.value = AuthEvent.Success
             _navigationEvent.emit(AuthNavigationEvent.NavigateToHome)
         }

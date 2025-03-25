@@ -30,6 +30,7 @@ import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.login.SignInScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.signup.SignUpScreen
+import com.kaaneneskpc.deliverr.ui.features.home.HomeScreen
 import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
@@ -48,6 +49,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var foodApi: FoodApi
+    @Inject
+    lateinit var deliverrSession: DeliverrSession
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().apply {
             setKeepOnScreenCondition {
@@ -88,7 +92,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = AuthScreen,
+                        startDestination = if(deliverrSession.getToken() != null) Home else AuthScreen,
                         modifier = Modifier.padding(innerPadding),
                         enterTransition = {
                             slideIntoContainer(
@@ -125,12 +129,7 @@ class MainActivity : ComponentActivity() {
                             SignInScreen(navController)
                         }
                         composable<Home> {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(Color.Red)
-                            ) {
-                            }
+                            HomeScreen(navController)
                         }
                     }
                 }

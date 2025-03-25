@@ -1,0 +1,76 @@
+package com.kaaneneskpc.deliverr.ui.features.home
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import com.kaaneneskpc.deliverr.data.models.response.home.Category
+import com.kaaneneskpc.deliverr.data.models.response.home.Restaurant
+import com.kaaneneskpc.deliverr.ui.features.home.components.CategoryItem
+import com.kaaneneskpc.deliverr.ui.features.home.components.RestaurantItem
+import com.kaaneneskpc.deliverr.ui.theme.Typography
+
+@Composable
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+        when (uiState.value) {
+            is HomeViewModel.HomeScreenState.Loading -> {
+                Text(text = "Loading")
+            }
+
+            is HomeViewModel.HomeScreenState.Empty -> {
+                Text(text = "Empty")
+            }
+
+            is HomeViewModel.HomeScreenState.Success -> {
+                CategoriesList(categories =  viewModel.categories, onCategorySelected = {})
+
+                RestaurantList(restaurants = viewModel.restaurants, onRestaurantSelected = {})
+            }
+        }
+    }
+}
+
+@Composable
+fun CategoriesList(categories: List<Category>, onCategorySelected: (Category) -> Unit) {
+    LazyRow {
+        items(categories) {
+            CategoryItem(category = it, onCategorySelected = onCategorySelected)
+        }
+    }
+}
+
+
+@Composable
+fun RestaurantList(restaurants: List<Restaurant>, onRestaurantSelected: (Restaurant) -> Unit) {
+    Column {
+        Row {
+            Text(
+                text = "Popular Restaurants",
+                style = Typography.titleMedium,
+                modifier = Modifier.padding(16.dp)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            TextButton(onClick = { /*TODO*/ }) {
+                Text(text = "View All", style = Typography.bodySmall)
+            }
+        }
+    }
+    LazyRow {
+        items(restaurants) {
+            RestaurantItem(it, onRestaurantSelected)
+        }
+    }
+}

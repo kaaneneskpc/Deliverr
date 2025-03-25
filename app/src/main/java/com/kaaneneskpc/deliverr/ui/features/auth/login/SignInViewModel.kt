@@ -1,8 +1,11 @@
 package com.kaaneneskpc.deliverr.ui.features.auth.login
 
 import androidx.lifecycle.viewModelScope
+import com.kaaneneskpc.deliverr.DeliverrSession
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.request.auth.SignInRequest
+import com.kaaneneskpc.deliverr.data.remote.ApiResponse
+import com.kaaneneskpc.deliverr.data.remote.safeApiCall
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreenViewModel
 import com.kaaneneskpc.deliverr.ui.features.auth.BaseAuthViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +18,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
+class SignInViewModel @Inject constructor(override val foodApi: FoodApi, var session: DeliverrSession) :
     BaseAuthViewModel(foodApi) {
 
     private val _uiState = MutableStateFlow<SignInEvent>(SignInEvent.Nothing)
@@ -41,23 +44,34 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
     fun onSignInClick() {
         viewModelScope.launch {
             _uiState.value = SignInEvent.Loading
-            try {
-                val response = foodApi.signIn(
+            val response = safeApiCall {
+                foodApi.signIn(
                     SignInRequest(
                         email = email.value, password = password.value
                     )
                 )
-                if (response.body()?.token?.isNotEmpty() == true) {
+            }
+            when (response) {
+                is ApiResponse.Success -> {
                     _uiState.value = SignInEvent.Success
+                    session.storeToken(response.data.token)
                     _navigationEvent.emit(SignInNavigationEvent.NavigateToHome)
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _uiState.value = SignInEvent.Error
+
+                else -> {
+                    val errr = (response as? ApiResponse.Error)?.code ?: 0
+                    error = "Sign In Failed"
+                    errorDescription = "Failed to sign up"
+                    when (errr) {
+                        400 -> {
+                            error = "Invalid Credintials"
+                            errorDescription = "Please enter correct details."
+                        }
+                    }
+                    _uiState.value = SignInEvent.Error
+                }
             }
-
         }
-
     }
 
     fun onSignUpClicked() {
@@ -102,6 +116,7 @@ class SignInViewModel @Inject constructor(override val foodApi: FoodApi) :
 
     override fun onSocialLoginSuccess(token: String) {
         viewModelScope.launch {
+            session.storeToken(token)
             _uiState.value = SignInEvent.Success
             _navigationEvent.emit(SignInNavigationEvent.NavigateToHome)
         }
