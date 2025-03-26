@@ -30,16 +30,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.kaaneneskpc.deliverr.data.FoodApi
+import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.login.SignInScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.signup.SignUpScreen
+import com.kaaneneskpc.deliverr.ui.features.food_item.FoodDetailsScreen
 import com.kaaneneskpc.deliverr.ui.features.home.HomeScreen
 import com.kaaneneskpc.deliverr.ui.features.restaurant.RestaurantDetailsScreen
 import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
+import com.kaaneneskpc.deliverr.ui.navigation.FoodDetails
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
 import com.kaaneneskpc.deliverr.ui.navigation.RestaurantDetails
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
+import com.kaaneneskpc.deliverr.ui.navigation.foodItemNavType
 import com.kaaneneskpc.deliverr.ui.theme.DeliverrTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -47,6 +51,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -145,6 +150,16 @@ class MainActivity : ComponentActivity() {
                                     name = route.restaurantName,
                                     imageUrl = route.restaurantImageUrl,
                                     restaurantID = route.restaurantId,
+                                    this
+                                )
+                            }
+                            composable<FoodDetails>(
+                                typeMap = mapOf(typeOf<FoodItem>() to foodItemNavType)
+                            ) {
+                                val route = it.toRoute<FoodDetails>()
+                                FoodDetailsScreen(
+                                    navController,
+                                    foodItem = route.foodItem,
                                     this
                                 )
                             }

@@ -1,5 +1,8 @@
 package com.kaaneneskpc.deliverr.data.models.response.restaurant
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class FoodItem(
     val arModelUrl: String?,
     val createdAt: String,

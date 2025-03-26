@@ -49,6 +49,7 @@ import androidx.navigation.NavController
 import com.kaaneneskpc.deliverr.common.gridItems
 import com.kaaneneskpc.deliverr.ui.features.restaurant.components.FoodItemView
 import com.kaaneneskpc.deliverr.ui.features.restaurant.components.RestaurantDetailsHeader
+import com.kaaneneskpc.deliverr.ui.navigation.FoodDetails
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -99,7 +100,11 @@ fun SharedTransitionScope.RestaurantDetailsScreen(
                     (uiState.value as RestaurantViewModel.RestaurantEvent.Success).foodItems
                 if (foodItems.isNotEmpty()) {
                     gridItems(foodItems, 2) { foodItem ->
-                        FoodItemView(footItem = foodItem)
+                        FoodItemView(footItem = foodItem, animatedVisibilityScope) {
+                            navController.navigate(
+                                FoodDetails(foodItem)
+                            )
+                        }
                     }
                 } else {
                     item {
