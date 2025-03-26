@@ -1,4 +1,4 @@
-package com.kaaneneskpc.deliverr.data.models.response.home
+package com.kaaneneskpc.deliverr.data.models.response.restaurant
 
 data class Restaurant(
     val address: String,
