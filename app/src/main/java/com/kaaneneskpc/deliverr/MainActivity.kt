@@ -34,10 +34,12 @@ import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.login.SignInScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.signup.SignUpScreen
+import com.kaaneneskpc.deliverr.ui.features.cart.CartScreen
 import com.kaaneneskpc.deliverr.ui.features.food_item.FoodDetailsScreen
 import com.kaaneneskpc.deliverr.ui.features.home.HomeScreen
 import com.kaaneneskpc.deliverr.ui.features.restaurant.RestaurantDetailsScreen
 import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
+import com.kaaneneskpc.deliverr.ui.navigation.Cart
 import com.kaaneneskpc.deliverr.ui.navigation.FoodDetails
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
@@ -162,6 +164,10 @@ class MainActivity : ComponentActivity() {
                                     foodItem = route.foodItem,
                                     this
                                 )
+                            }
+
+                            composable<Cart> {
+                                CartScreen(navController)
                             }
                         }
                     }
