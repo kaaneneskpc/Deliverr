@@ -1,6 +1,8 @@
 package com.kaaneneskpc.deliverr.data
 
 import android.content.Context
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.kaaneneskpc.deliverr.DeliverrSession
 import dagger.Module
 import dagger.Provides
@@ -47,5 +49,10 @@ object NetworkModule {
     @Provides
     fun provideSession(@ApplicationContext context: Context): DeliverrSession {
         return DeliverrSession(context)
+    }
+
+    @Provides
+    fun provideLocationService(@ApplicationContext context: Context): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(context)
     }
 }

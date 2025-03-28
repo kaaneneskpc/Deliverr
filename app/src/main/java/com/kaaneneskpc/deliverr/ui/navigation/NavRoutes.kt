@@ -3,27 +3,38 @@ package com.kaaneneskpc.deliverr.ui.navigation
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
 import kotlinx.serialization.Serializable
 
-@Serializable
-object Login
+interface NavRoute
 
 @Serializable
-object SignUp
+object Login : NavRoute
 
 @Serializable
-object AuthScreen
+object SignUp : NavRoute
 
 @Serializable
-object Home
+object AuthScreen : NavRoute
+
+@Serializable
+object Home : NavRoute
 
 @Serializable
 data class RestaurantDetails(
     val restaurantId: String,
     val restaurantName: String,
     val restaurantImageUrl: String,
-)
+) : NavRoute
 
 @Serializable
-data class FoodDetails(val foodItem: FoodItem)
+data class FoodDetails(val foodItem: FoodItem) : NavRoute
 
 @Serializable
-object Cart
+object Cart : NavRoute
+
+@Serializable
+object Notification : NavRoute
+
+@Serializable
+object AddressList : NavRoute
+
+@Serializable
+object AddAddress : NavRoute

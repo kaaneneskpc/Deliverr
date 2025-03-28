@@ -1,5 +1,6 @@
 package com.kaaneneskpc.deliverr.data
 
+import com.kaaneneskpc.deliverr.data.models.request.ReverseGeoCodeRequest
 import com.kaaneneskpc.deliverr.data.models.request.add_to_cart.AddToCartRequest
 import com.kaaneneskpc.deliverr.data.models.request.add_to_cart.UpdateCartItemRequest
 import com.kaaneneskpc.deliverr.data.models.response.auth.AuthResponse
@@ -9,6 +10,8 @@ import com.kaaneneskpc.deliverr.data.models.request.auth.SignUpRequest
 import com.kaaneneskpc.deliverr.data.models.response.GenericMessageResponse
 import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.AddToCartResponse
 import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartResponse
+import com.kaaneneskpc.deliverr.data.models.response.address.Address
+import com.kaaneneskpc.deliverr.data.models.response.address.AddressListResponse
 import com.kaaneneskpc.deliverr.data.models.response.home.CategoriesResponse
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItemResponse
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.RestaurantsResponse
@@ -54,4 +57,13 @@ interface FoodApi {
 
     @DELETE("/cart/{cartItemId}")
     suspend fun deleteCartItem(@Path("cartItemId") cartItemId: String): Response<GenericMessageResponse>
+
+    @GET("/addresses")
+    suspend fun getUserAddress(): Response<AddressListResponse>
+
+    @POST("/addresses/reverse-geocode")
+    suspend fun reverseGeocode(@Body request: ReverseGeoCodeRequest): Response<Address>
+
+    @POST("/addresses")
+    suspend fun storeAddress(@Body address: Address): Response<GenericMessageResponse>
 }

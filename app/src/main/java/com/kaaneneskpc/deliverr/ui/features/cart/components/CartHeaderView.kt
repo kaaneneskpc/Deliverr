@@ -27,7 +27,7 @@ fun CartHeaderView(onBack: () -> Unit) {
         IconButton(onClick = onBack) {
             Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = null)
         }
-        Text(text = "Cart", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 12.dp))
+        Text(text = "Cart", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 12.dp, end = 40.dp))
         Spacer(modifier = Modifier.size(8.dp))
     }
 }

@@ -6,6 +6,7 @@ import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.request.add_to_cart.UpdateCartItemRequest
 import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartItem
 import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartResponse
+import com.kaaneneskpc.deliverr.data.models.response.address.Address
 import com.kaaneneskpc.deliverr.data.remote.ApiResponse
 import com.kaaneneskpc.deliverr.data.remote.safeApiCall
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,6 +31,12 @@ class CartViewModel @Inject constructor(val foodApi: FoodApi) : ViewModel() {
 
     private var cartResponse: CartResponse? = null
 
+    private val _cartItemCount = MutableStateFlow(0)
+    val cartItemCount = _cartItemCount.asStateFlow()
+
+    private val address = MutableStateFlow<Address?>(null)
+    val selectedAddress = address.asStateFlow()
+
     init {
         getCart()
     }
@@ -42,6 +49,7 @@ class CartViewModel @Inject constructor(val foodApi: FoodApi) : ViewModel() {
             when (res) {
                 is ApiResponse.Success -> {
                     cartResponse = res.data
+                    _cartItemCount.value = res.data.items.size
                     _uiState.value = CartUiState.Success(res.data)
                 }
 
@@ -118,6 +126,16 @@ class CartViewModel @Inject constructor(val foodApi: FoodApi) : ViewModel() {
 
     }
 
+    fun onAddressClicked() {
+        viewModelScope.launch {
+            _event.emit(CartEvent.onAddressClicked)
+        }
+    }
+
+    fun onAddressSelected(it: Address) {
+        address.value = it
+    }
+
     sealed class CartUiState {
         object Nothing : CartUiState()
         object Loading : CartUiState()
@@ -130,5 +148,6 @@ class CartViewModel @Inject constructor(val foodApi: FoodApi) : ViewModel() {
         object OnCheckout : CartEvent()
         object onQuantityUpdateError : CartEvent()
         object onItemRemoveError : CartEvent()
+        object onAddressClicked : CartEvent()
     }
 }

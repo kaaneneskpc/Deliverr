@@ -76,4 +76,7 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.maps.compose)
+    implementation(libs.play.services.location)
+    implementation(libs.kotlinx.coroutines.play.services)
 }
