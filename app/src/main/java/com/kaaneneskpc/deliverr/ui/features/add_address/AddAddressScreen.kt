@@ -99,7 +99,6 @@ fun AddAddressScreen(
                 LaunchedEffect(key1 = Unit) {
                     cameraState.position =
                         CameraPosition.fromLatLngZoom(LatLng(it.latitude, it.longitude), 13f)
-
                 }
                 val centerScreenMarker = remember {
                     mutableStateOf(LatLng(it.latitude, it.longitude))
