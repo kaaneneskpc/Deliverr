@@ -25,6 +25,7 @@ lifecycleRuntimeCompose = "2.8.7"
 converterGson = "2.11.0"
 kotlinxSerializationJson = "1.8.0"
 ksp = "2.0.0-Beta4-1.0.18"
+stripeAndroid = "21.6.0"
 
 [libraries]
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
@@ -60,6 +61,7 @@ logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", ver
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+stripe-android = { module = "com.stripe:stripe-android", version.ref = "stripeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

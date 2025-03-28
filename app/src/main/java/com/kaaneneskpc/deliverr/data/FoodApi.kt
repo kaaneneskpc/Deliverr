@@ -7,12 +7,16 @@ import com.kaaneneskpc.deliverr.data.models.response.auth.AuthResponse
 import com.kaaneneskpc.deliverr.data.models.request.auth.OAuthRequest
 import com.kaaneneskpc.deliverr.data.models.request.auth.SignInRequest
 import com.kaaneneskpc.deliverr.data.models.request.auth.SignUpRequest
+import com.kaaneneskpc.deliverr.data.models.request.payment.ConfirmPaymentRequest
+import com.kaaneneskpc.deliverr.data.models.request.payment.PaymentIntentRequest
 import com.kaaneneskpc.deliverr.data.models.response.GenericMessageResponse
 import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.AddToCartResponse
 import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartResponse
 import com.kaaneneskpc.deliverr.data.models.response.address.Address
 import com.kaaneneskpc.deliverr.data.models.response.address.AddressListResponse
 import com.kaaneneskpc.deliverr.data.models.response.home.CategoriesResponse
+import com.kaaneneskpc.deliverr.data.models.response.payment.ConfirmPaymentResponse
+import com.kaaneneskpc.deliverr.data.models.response.payment.PaymentIntentResponse
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItemResponse
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.RestaurantsResponse
 import retrofit2.Response
@@ -66,4 +70,13 @@ interface FoodApi {
 
     @POST("/addresses")
     suspend fun storeAddress(@Body address: Address): Response<GenericMessageResponse>
+
+    @POST("/payments/create-intent")
+    suspend fun getPaymentIntent(@Body request: PaymentIntentRequest): Response<PaymentIntentResponse>
+
+    @POST("/payments/confirm/{paymentIntentId}")
+    suspend fun verifyPurchase(
+        @Body request: ConfirmPaymentRequest,
+        @Path("paymentIntentId") paymentIntentId: String
+    ): Response<ConfirmPaymentResponse>
 }

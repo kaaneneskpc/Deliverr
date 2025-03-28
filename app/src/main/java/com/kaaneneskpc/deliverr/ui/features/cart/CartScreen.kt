@@ -36,6 +36,11 @@ import com.kaaneneskpc.deliverr.ui.features.cart.components.CartHeaderView
 import com.kaaneneskpc.deliverr.ui.features.cart.components.CartItemView
 import com.kaaneneskpc.deliverr.ui.features.cart.components.CheckoutDetailsView
 import com.kaaneneskpc.deliverr.ui.navigation.AddressList
+import com.kaaneneskpc.deliverr.ui.navigation.OrderSuccess
+import com.stripe.android.PaymentConfiguration
+import com.stripe.android.paymentsheet.PaymentSheet
+import com.stripe.android.paymentsheet.PaymentSheetResult
+import com.stripe.android.paymentsheet.rememberPaymentSheet
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,6 +63,13 @@ fun CartScreen(navController: NavController, viewModel: CartViewModel = hiltView
             viewModel.onAddressSelected(it)
         }
     }
+    val paymentSheet = rememberPaymentSheet(paymentResultCallback = {
+        if (it is PaymentSheetResult.Completed) {
+            viewModel.onPaymentSuccess()
+        } else {
+            viewModel.onPaymentFailed()
+        }
+    })
     LaunchedEffect(key1 = true) {
         viewModel.event.collectLatest {
             when (it) {
@@ -69,7 +81,29 @@ fun CartScreen(navController: NavController, viewModel: CartViewModel = hiltView
                 is CartViewModel.CartEvent.onAddressClicked -> {
                     navController.navigate(AddressList)
                 }
+                is CartViewModel.CartEvent.OrderSuccess -> {
+                    navController.navigate(OrderSuccess(it.orderId!!))
+                }
 
+                is CartViewModel.CartEvent.OnInitiatePayment -> {
+                    PaymentConfiguration.init(navController.context, it.data.publishableKey)
+                    val customer = PaymentSheet.CustomerConfiguration(
+                        it.data.customerId,
+                        it.data.ephemeralKeySecret
+                    )
+                    val paymentSheetConfig = PaymentSheet.Configuration(
+                        merchantDisplayName = "Deliverr",
+                        customer = customer,
+                        allowsDelayedPaymentMethods = false,
+                    )
+
+                    // Initiate payment
+
+                    paymentSheet.presentWithPaymentIntent(
+                        it.data.paymentIntentClientSecret,
+                        paymentSheetConfig
+                    )
+                }
                 else -> {
 
                 }

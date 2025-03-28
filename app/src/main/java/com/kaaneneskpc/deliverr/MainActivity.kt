@@ -53,6 +53,7 @@ import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
 import com.kaaneneskpc.deliverr.ui.features.add_address.AddAddressScreen
 import com.kaaneneskpc.deliverr.ui.features.address_list.AddressListScreen
+import com.kaaneneskpc.deliverr.ui.features.order_success.OrderSuccess
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.login.SignInScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.signup.SignUpScreen
@@ -70,6 +71,7 @@ import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
 import com.kaaneneskpc.deliverr.ui.navigation.NavRoute
 import com.kaaneneskpc.deliverr.ui.navigation.Notification
+import com.kaaneneskpc.deliverr.ui.navigation.OrderSuccess
 import com.kaaneneskpc.deliverr.ui.navigation.RestaurantDetails
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
 import com.kaaneneskpc.deliverr.ui.navigation.foodItemNavType
@@ -270,8 +272,7 @@ class MainActivity : ComponentActivity() {
                                     onItemAddedToCart = { cartViewModel.getCart() }
                                 )
                             }
-
-                            composable<Cart>() {
+                            composable<Cart> {
                                 shouldShowBottomNav.value = true
                                 CartScreen(navController, cartViewModel)
                             }
@@ -288,6 +289,11 @@ class MainActivity : ComponentActivity() {
                             composable<AddAddress> {
                                 shouldShowBottomNav.value = false
                                 AddAddressScreen(navController)
+                            }
+                            composable<OrderSuccess> {
+                                shouldShowBottomNav.value = false
+                                val orderID = it.toRoute<OrderSuccess>().orderId
+                                OrderSuccess(orderID, navController)
                             }
                         }
                     }
