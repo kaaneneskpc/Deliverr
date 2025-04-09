@@ -62,6 +62,7 @@ import com.kaaneneskpc.deliverr.ui.features.cart.CartViewModel
 import com.kaaneneskpc.deliverr.ui.features.food_item.FoodDetailsScreen
 import com.kaaneneskpc.deliverr.ui.features.home.HomeScreen
 import com.kaaneneskpc.deliverr.ui.features.orders.OrderListScreen
+import com.kaaneneskpc.deliverr.ui.features.orders.order_details.OrderDetailsScreen
 import com.kaaneneskpc.deliverr.ui.features.restaurant.RestaurantDetailsScreen
 import com.kaaneneskpc.deliverr.ui.navigation.AddAddress
 import com.kaaneneskpc.deliverr.ui.navigation.AddressList
@@ -311,7 +312,7 @@ class MainActivity : ComponentActivity() {
                             composable<OrderDetails>{
                                 shouldShowBottomNav.value = false
                                 val orderID = it.toRoute<OrderDetails>().orderId
-                                // OrderDetailsScreen(navController, orderID)
+                                OrderDetailsScreen(navController, orderID)
                             }
                         }
                     }

@@ -44,6 +44,7 @@ import com.google.android.gms.common.internal.safeparcel.SafeParcelable.Indicato
 import com.kaaneneskpc.deliverr.R
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
 import com.kaaneneskpc.deliverr.ui.features.orders.components.OrderListItem
+import com.kaaneneskpc.deliverr.ui.navigation.OrderDetails
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -56,7 +57,7 @@ fun OrderListScreen(navController: NavController, viewModel: OrderListViewModel 
             viewModel.event.collectLatest {
                 when (it) {
                     is OrderListViewModel.OrderListEvent.NavigateToOrderDetailScreen -> {
-                        // navController.navigate(OrderDetails(it.order.id))
+                        navController.navigate(OrderDetails(it.order.id))
                     }
 
                     OrderListViewModel.OrderListEvent.NavigateBack -> {
