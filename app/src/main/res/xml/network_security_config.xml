@@ -3,6 +3,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.1.130</domain>
         <domain includeSubdomains="true">192.168.7.95</domain>
+        <domain includeSubdomains="true">10.22.186.159</domain>
         <!-- This matches the IP address in your NetworkModule.kt -->
         <!-- You can add multiple domain entries if needed -->
     </domain-config>

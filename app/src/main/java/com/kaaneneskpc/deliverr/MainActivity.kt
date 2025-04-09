@@ -61,6 +61,7 @@ import com.kaaneneskpc.deliverr.ui.features.cart.CartScreen
 import com.kaaneneskpc.deliverr.ui.features.cart.CartViewModel
 import com.kaaneneskpc.deliverr.ui.features.food_item.FoodDetailsScreen
 import com.kaaneneskpc.deliverr.ui.features.home.HomeScreen
+import com.kaaneneskpc.deliverr.ui.features.orders.OrderListScreen
 import com.kaaneneskpc.deliverr.ui.features.restaurant.RestaurantDetailsScreen
 import com.kaaneneskpc.deliverr.ui.navigation.AddAddress
 import com.kaaneneskpc.deliverr.ui.navigation.AddressList
@@ -71,6 +72,8 @@ import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
 import com.kaaneneskpc.deliverr.ui.navigation.NavRoute
 import com.kaaneneskpc.deliverr.ui.navigation.Notification
+import com.kaaneneskpc.deliverr.ui.navigation.OrderDetails
+import com.kaaneneskpc.deliverr.ui.navigation.OrderList
 import com.kaaneneskpc.deliverr.ui.navigation.OrderSuccess
 import com.kaaneneskpc.deliverr.ui.navigation.RestaurantDetails
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
@@ -102,6 +105,10 @@ class MainActivity : ComponentActivity() {
                 com.kaaneneskpc.deliverr.ui.navigation.Notification,
                 R.drawable.notification
             )
+        object Orders : BottomNavItem(
+            OrderList,
+            R.drawable.orders
+        )
     }
 
     @OptIn(ExperimentalSharedTransitionApi::class)
@@ -148,7 +155,8 @@ class MainActivity : ComponentActivity() {
                 val navItems = listOf(
                     BottomNavItem.Home,
                     BottomNavItem.Cart,
-                    BottomNavItem.Notification
+                    BottomNavItem.Notification,
+                    BottomNavItem.Orders
                 )
                 val navController = rememberNavController()
                 val cartViewModel: CartViewModel = hiltViewModel()
@@ -294,6 +302,16 @@ class MainActivity : ComponentActivity() {
                                 shouldShowBottomNav.value = false
                                 val orderID = it.toRoute<OrderSuccess>().orderId
                                 OrderSuccess(orderID, navController)
+                            }
+                            composable<OrderList> {
+                                shouldShowBottomNav.value = true
+                                OrderListScreen(navController)
+                            }
+
+                            composable<OrderDetails>{
+                                shouldShowBottomNav.value = false
+                                val orderID = it.toRoute<OrderDetails>().orderId
+                                // OrderDetailsScreen(navController, orderID)
                             }
                         }
                     }

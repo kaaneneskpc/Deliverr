@@ -15,6 +15,8 @@ import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartResponse
 import com.kaaneneskpc.deliverr.data.models.response.address.Address
 import com.kaaneneskpc.deliverr.data.models.response.address.AddressListResponse
 import com.kaaneneskpc.deliverr.data.models.response.home.CategoriesResponse
+import com.kaaneneskpc.deliverr.data.models.response.order.Order
+import com.kaaneneskpc.deliverr.data.models.response.order.OrderListResponse
 import com.kaaneneskpc.deliverr.data.models.response.payment.ConfirmPaymentResponse
 import com.kaaneneskpc.deliverr.data.models.response.payment.PaymentIntentResponse
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItemResponse
@@ -79,4 +81,10 @@ interface FoodApi {
         @Body request: ConfirmPaymentRequest,
         @Path("paymentIntentId") paymentIntentId: String
     ): Response<ConfirmPaymentResponse>
+
+    @GET("/orders")
+    suspend fun getOrders(): Response<OrderListResponse>
+
+    @GET("/orders/{orderId}")
+    suspend fun getOrderDetails(@Path("orderId") orderId: String): Response<Order>
 }
