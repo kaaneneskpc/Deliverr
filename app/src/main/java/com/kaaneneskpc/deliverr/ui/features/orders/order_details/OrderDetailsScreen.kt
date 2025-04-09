@@ -275,7 +275,6 @@ private fun OrderDetailsContent(order: Order, statusIcon: Int) {
             }
         }
         
-        // Order Details Card
         Card(
             modifier = Modifier
                 .fillMaxWidth()
