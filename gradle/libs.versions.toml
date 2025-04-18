@@ -3,6 +3,7 @@ agp = "8.8.0"
 coilCompose = "3.0.4"
 credentials = "1.5.0"
 facebookLogin = "18.0.2"
+firebaseBom = "33.12.0"
 googleid = "1.1.1"
 kotlin = "2.0.0"
 coreKtx = "1.15.0"
@@ -26,6 +27,7 @@ converterGson = "2.11.0"
 kotlinxSerializationJson = "1.8.0"
 ksp = "2.0.0-Beta4-1.0.18"
 stripeAndroid = "21.6.0"
+googleServices = "4.4.2"
 
 [libraries]
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
@@ -36,6 +38,8 @@ coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCo
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 facebook-login = { module = "com.facebook.android:facebook-login", version.ref = "facebookLogin" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx" }
 googleid = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltAndroid" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
@@ -70,3 +74,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerializationJson" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
+play-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }

@@ -7,6 +7,7 @@ import com.kaaneneskpc.deliverr.data.models.response.auth.AuthResponse
 import com.kaaneneskpc.deliverr.data.models.request.auth.OAuthRequest
 import com.kaaneneskpc.deliverr.data.models.request.auth.SignInRequest
 import com.kaaneneskpc.deliverr.data.models.request.auth.SignUpRequest
+import com.kaaneneskpc.deliverr.data.models.request.notification.FCMRequest
 import com.kaaneneskpc.deliverr.data.models.request.payment.ConfirmPaymentRequest
 import com.kaaneneskpc.deliverr.data.models.request.payment.PaymentIntentRequest
 import com.kaaneneskpc.deliverr.data.models.response.GenericMessageResponse
@@ -15,6 +16,7 @@ import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartResponse
 import com.kaaneneskpc.deliverr.data.models.response.address.Address
 import com.kaaneneskpc.deliverr.data.models.response.address.AddressListResponse
 import com.kaaneneskpc.deliverr.data.models.response.home.CategoriesResponse
+import com.kaaneneskpc.deliverr.data.models.response.notification.NotificationListResponse
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
 import com.kaaneneskpc.deliverr.data.models.response.order.OrderListResponse
 import com.kaaneneskpc.deliverr.data.models.response.payment.ConfirmPaymentResponse
@@ -27,6 +29,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -87,4 +90,13 @@ interface FoodApi {
 
     @GET("/orders/{orderId}")
     suspend fun getOrderDetails(@Path("orderId") orderId: String): Response<Order>
+
+    @PUT("/notifications/fcm-token")
+    suspend fun updateToken(@Body request: FCMRequest): Response<GenericMessageResponse>
+
+    @POST("/notifications/{id}/read")
+    suspend fun readNotification(@Path("id") id: String): Response<GenericMessageResponse>
+
+    @GET("/notifications")
+    suspend fun getNotifications(): Response<NotificationListResponse>
 }
