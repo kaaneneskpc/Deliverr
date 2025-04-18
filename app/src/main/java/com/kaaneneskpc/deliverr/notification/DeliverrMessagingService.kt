@@ -6,16 +6,23 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.kaaneneskpc.deliverr.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FoodHubMessagingService : FirebaseMessagingService() {
+class DeliverrMessagingService : FirebaseMessagingService() {
 
     @Inject
-    lateinit var foodHubNotificationManager: DeliverrNotificationManager
+    lateinit var deliverrNotificationManager: DeliverrNotificationManager
+    
+    @Inject
+    lateinit var notificationEventBus: NotificationEventBus
+    
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        foodHubNotificationManager.updateToken(token)
+        deliverrNotificationManager.updateToken(token)
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
@@ -41,10 +48,15 @@ class FoodHubMessagingService : FirebaseMessagingService() {
             "general" -> DeliverrNotificationManager.NotificationChannelType.PROMOTION
             else -> DeliverrNotificationManager.NotificationChannelType.ACCOUNT
         }
-        foodHubNotificationManager.showNotification(
+        deliverrNotificationManager.showNotification(
             title, messageText, 13034, pendingIntent,
             notificationChannelType
         )
+        
+        // Bildirim olayını yayınla - bu, dinleyen ViewModel'lerin güncellemesini sağlayacak
+        CoroutineScope(Dispatchers.IO).launch {
+            notificationEventBus.publishEvent(NotificationEventBus.NotificationEvent.NewNotificationReceived)
+        }
     }
 
     companion object {

@@ -56,7 +56,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
-import com.kaaneneskpc.deliverr.notification.FoodHubMessagingService
+import com.kaaneneskpc.deliverr.notification.DeliverrMessagingService
+import com.kaaneneskpc.deliverr.notification.DeliverrNotificationManager
 import com.kaaneneskpc.deliverr.ui.features.add_address.AddAddressScreen
 import com.kaaneneskpc.deliverr.ui.features.address_list.AddressListScreen
 import com.kaaneneskpc.deliverr.ui.features.order_success.OrderSuccess
@@ -349,10 +350,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun processIntent(intent: Intent, viewModel: DeliverrViewModel) {
-        if (intent.hasExtra(FoodHubMessagingService.ORDER_ID)) {
-            val orderID = intent.getStringExtra(FoodHubMessagingService.ORDER_ID)
+        if (intent.hasExtra(DeliverrMessagingService.ORDER_ID)) {
+            val orderID = intent.getStringExtra(DeliverrMessagingService.ORDER_ID)
             viewModel.navigateToOrderDetail(orderID.orEmpty())
-            intent.removeExtra(FoodHubMessagingService.ORDER_ID)
+            intent.removeExtra(DeliverrMessagingService.ORDER_ID)
         }
     }
 }

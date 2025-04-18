@@ -6,10 +6,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -19,12 +23,29 @@ import com.kaaneneskpc.deliverr.ui.features.notifications.components.LoadingScre
 import com.kaaneneskpc.deliverr.ui.features.notifications.components.NotificationItem
 import com.kaaneneskpc.deliverr.ui.navigation.OrderDetails
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 
 @Composable
 fun NotificationsList(navController: NavController, viewModel: NotificationsViewModel) {
 
     val state = viewModel.state.collectAsStateWithLifecycle()
+    val listState = rememberLazyListState()
+    
+    // Triggered when the screen is displayed/navigated to
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getNotifications()
+    }
+    
+    // Bildirim verileri değiştiğinde en üste kaydır
+    LaunchedEffect(state.value) {
+        if (state.value is NotificationsViewModel.NotificationsState.Success) {
+            // Yeni bildirimler geldiğinde en üstteki öğeye kaydır
+            listState.animateScrollToItem(0)
+        }
+    }
+    
     LaunchedEffect(key1 = true) {
         viewModel.event.collectLatest {
             when (it) {
@@ -51,7 +72,9 @@ fun NotificationsList(navController: NavController, viewModel: NotificationsView
                 )
                 val notifications =
                     (state.value as NotificationsViewModel.NotificationsState.Success).data
-                LazyColumn {
+                LazyColumn(
+                    state = listState
+                ) {
                     items(notifications, key = { it.id }) {
                         NotificationItem(it) {
                             viewModel.readNotification(it)

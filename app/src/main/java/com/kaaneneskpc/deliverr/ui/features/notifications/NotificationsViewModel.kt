@@ -6,7 +6,10 @@ import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.notification.Notification
 import com.kaaneneskpc.deliverr.data.remote.ApiResponse
 import com.kaaneneskpc.deliverr.data.remote.safeApiCall
+import com.kaaneneskpc.deliverr.notification.NotificationEventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,7 +18,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationsViewModel @Inject constructor(private val foodApi: FoodApi) : ViewModel() {
+class NotificationsViewModel @Inject constructor(
+    private val foodApi: FoodApi,
+    private val notificationEventBus: NotificationEventBus
+) : ViewModel() {
 
     private val _state = MutableStateFlow<NotificationsState>(NotificationsState.Loading)
     val state = _state.asStateFlow()
@@ -25,9 +31,47 @@ class NotificationsViewModel @Inject constructor(private val foodApi: FoodApi) :
 
     private val _unreadCount = MutableStateFlow(0)
     val unreadCount = _unreadCount.asStateFlow()
-
+    
+    private var autoRefreshJob: Job? = null
+    private val refreshIntervalMs = 30000L // 30 seconds
+    
     init {
         getNotifications()
+        // Yeni bildirim olaylarını dinle
+        listenForNotificationEvents()
+    }
+    
+    private fun listenForNotificationEvents() {
+        viewModelScope.launch {
+            notificationEventBus.events.collect { event ->
+                when (event) {
+                    is NotificationEventBus.NotificationEvent.NewNotificationReceived -> {
+                        // Yeni bildirim geldiğinde sessizce yenile
+                        getNotificationsQuietly()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        stopAutoRefresh()
+    }
+    
+    private fun startAutoRefresh() {
+        stopAutoRefresh()
+        autoRefreshJob = viewModelScope.launch {
+            while (true) {
+                delay(refreshIntervalMs)
+                getNotificationsQuietly()
+            }
+        }
+    }
+    
+    private fun stopAutoRefresh() {
+        autoRefreshJob?.cancel()
+        autoRefreshJob = null
     }
 
     fun navigateToOrderDetail(orderID: String) {
@@ -45,15 +89,27 @@ class NotificationsViewModel @Inject constructor(private val foodApi: FoodApi) :
             }
         }
     }
+    
+    // Fetch notifications without showing loading state
+    private suspend fun getNotificationsQuietly() {
+        val response = safeApiCall { foodApi.getNotifications() }
+        if (response is ApiResponse.Success) {
+            _unreadCount.value = response.data.unreadCount
+            _state.value = NotificationsState.Success(response.data.notifications)
+        }
+    }
 
     fun getNotifications() {
         viewModelScope.launch {
+            _state.value = NotificationsState.Loading
             val response = safeApiCall { foodApi.getNotifications() }
             if (response is ApiResponse.Success) {
                 _unreadCount.value = response.data.unreadCount
                 _state.value = NotificationsState.Success(response.data.notifications)
+                startAutoRefresh() // Start auto-refresh after successful load
             } else {
                 _state.value = NotificationsState.Error("Failed to get notifications")
+                stopAutoRefresh() // Stop auto-refresh on error
             }
         }
     }
