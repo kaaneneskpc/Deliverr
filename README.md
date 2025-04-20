@@ -2,8 +2,6 @@
 
 A modern food delivery platform built with cutting-edge Android technologies.
 
-![Deliverr](https://via.placeholder.com/800x400?text=Deliverr+App)
-
 ## Overview
 
 Deliverr is a comprehensive food delivery ecosystem that connects customers, restaurants, and delivery riders through dedicated applications. Built with modern Android development practices, the platform offers a seamless experience for ordering food, managing restaurants, and delivering orders.
@@ -120,8 +118,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Credits
 
-This repo is inspired by [furqanullah717's Shopper-compose](https://github.com/furqanullah717/Shopper-compose)
+This repo is inspired by [furqanullah717's Shopper-compose](https://github.com/furqanullah717/foodhub-compose)
 
 ## Contact
 
-Project Link: [https://github.com/yourusername/deliverr](https://github.com/yourusername/deliverr)
+**Kaan Enes Kapıcı**
+- LinkedIn: [Kaan Enes Kapıcı](https://www.linkedin.com/in/kaaneneskpc/)
+- GitHub: [@kaaneneskpc](https://github.com/kaaneneskpc)
+- Email: kaaneneskpc1@gmail.com
+
+Feel free to reach out for any questions, suggestions, or collaboration opportunities! 
