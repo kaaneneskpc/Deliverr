@@ -98,7 +98,7 @@ import javax.inject.Inject
 import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : BaseDeliverrActivity() {
     var showSplashScreen = true
 
     @Inject
@@ -106,7 +106,6 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var deliverrSession: DeliverrSession
-    val viewModel by viewModels<DeliverrViewModel>()
 
     sealed class BottomNavItem(val route: NavRoute, val icon: Int) {
         object Home : BottomNavItem(com.kaaneneskpc.deliverr.ui.navigation.Home, R.drawable.home)
@@ -337,20 +336,6 @@ class MainActivity : ComponentActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             delay(3000)
             showSplashScreen = false
-            processIntent(intent, viewModel)
-        }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        processIntent(intent, viewModel)
-    }
-
-    private fun processIntent(intent: Intent, viewModel: DeliverrViewModel) {
-        if (intent.hasExtra(DeliverrMessagingService.ORDER_ID)) {
-            val orderID = intent.getStringExtra(DeliverrMessagingService.ORDER_ID)
-            viewModel.navigateToOrderDetail(orderID.orEmpty())
-            intent.removeExtra(DeliverrMessagingService.ORDER_ID)
         }
     }
 }

@@ -24,6 +24,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,10 +45,13 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.kaaneneskpc.deliverr.common.DeliverrNavHost
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.ui.feature.home.HomeScreen
 import com.kaaneneskpc.deliverr.ui.feature.home.HomeViewModel
+import com.kaaneneskpc.deliverr.ui.feature.order_details.OrderDetailsScreen
+import com.kaaneneskpc.deliverr.ui.feature.order_list.OrderListScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.login.SignInScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.signup.SignUpScreen
@@ -58,6 +62,7 @@ import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
 import com.kaaneneskpc.deliverr.ui.navigation.NavRoute
 import com.kaaneneskpc.deliverr.ui.navigation.Notification
+import com.kaaneneskpc.deliverr.ui.navigation.OrderDetails
 import com.kaaneneskpc.deliverr.ui.navigation.OrderList
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
 import com.kaaneneskpc.deliverr.ui.theme.DeliverrTheme
@@ -66,11 +71,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : BaseDeliverrActivity() {
     var showSplashScreen = true
 
     @Inject
@@ -142,7 +148,16 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val notificationsViewModel: NotificationsViewModel = hiltViewModel()
                 val unreadCount = notificationsViewModel.unreadCount.collectAsStateWithLifecycle()
-                val restaurantHomeViewModel: HomeViewModel = hiltViewModel()
+
+                LaunchedEffect(key1 = true) {
+                    viewModel.event.collectLatest {
+                        when (it) {
+                            is DeliverrViewModel.HomeEvent.NavigateToOrderDetail -> {
+                                navController.navigate(OrderDetails(it.orderID))
+                            }
+                        }
+                    }
+                }
 
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     bottomBar = {
@@ -207,6 +222,15 @@ class MainActivity : ComponentActivity() {
                                     shouldShowBottomNav.value = true
                                 }
                                 NotificationsList(navController, notificationsViewModel)
+                            }
+                            composable<OrderList> {
+                                shouldShowBottomNav.value = true
+                                OrderListScreen(navController)
+                            }
+                            composable<OrderDetails> {
+                                shouldShowBottomNav.value = true
+                                val orderID = it.toRoute<OrderDetails>().orderId
+                                OrderDetailsScreen(orderID, navController)
                             }
                         }
                     }

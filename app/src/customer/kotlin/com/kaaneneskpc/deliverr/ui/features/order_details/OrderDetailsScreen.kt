@@ -45,8 +45,8 @@ import coil3.compose.AsyncImage
 import com.kaaneneskpc.deliverr.R
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
 import com.kaaneneskpc.deliverr.data.models.response.order.OrderItem
-import com.kaaneneskpc.deliverr.ui.theme.Orange
 import com.kaaneneskpc.deliverr.ui.theme.Mustard
+import com.kaaneneskpc.deliverr.ui.theme.Primary
 import com.kaaneneskpc.deliverr.util.StringUtils
 import kotlinx.coroutines.flow.collectLatest
 
@@ -413,7 +413,7 @@ private fun OrderStatusChip(status: String, statusIcon: Int) {
                 when (status) {
                     "Delivered" -> Color.Green.copy(alpha = 0.1f)
                     "Preparing" -> Mustard.copy(alpha = 0.1f)
-                    "On the way" -> Orange.copy(alpha = 0.1f)
+                    "On the way" -> Primary.copy(alpha = 0.1f)
                     else -> Color.Gray.copy(alpha = 0.1f)
                 }
             )
@@ -434,7 +434,7 @@ private fun OrderStatusChip(status: String, statusIcon: Int) {
             color = when (status) {
                 "Delivered" -> Color.Green
                 "Preparing" -> Mustard
-                "On the way" -> Orange
+                "On the way" -> Primary
                 else -> Color.Gray
             },
             fontWeight = FontWeight.Medium

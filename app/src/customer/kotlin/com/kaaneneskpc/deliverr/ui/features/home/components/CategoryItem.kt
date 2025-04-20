@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.kaaneneskpc.deliverr.data.models.response.home.Category
-import com.kaaneneskpc.deliverr.ui.theme.Orange
+import com.kaaneneskpc.deliverr.ui.theme.Primary
 
 @Composable
 fun CategoryItem(category: Category, onCategorySelected: (Category) -> Unit) {
@@ -55,8 +55,8 @@ fun CategoryItem(category: Category, onCategorySelected: (Category) -> Unit) {
                 .shadow(
                     elevation = 16.dp,
                     shape = CircleShape,
-                    ambientColor = Orange,
-                    spotColor = Orange
+                    ambientColor = Primary,
+                    spotColor = Primary
                 )
                 .clip(CircleShape),
             contentScale = ContentScale.Inside
