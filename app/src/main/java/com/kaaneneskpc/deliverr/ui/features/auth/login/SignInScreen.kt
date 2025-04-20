@@ -49,11 +49,12 @@ import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
 import com.kaaneneskpc.deliverr.ui.theme.Orange
+import com.stripe.android.model.Customer
 import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
-fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hiltViewModel()) {
+fun SignInScreen(navController: NavController, isCustomer: Boolean, viewModel: SignInViewModel = hiltViewModel()) {
     Box(modifier = Modifier.fillMaxSize()) {
 
         val email = viewModel.email.collectAsStateWithLifecycle()
@@ -177,21 +178,22 @@ fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hilt
                 }
             }
             Spacer(modifier = Modifier.size(16.dp))
-            Text(
-                text = stringResource(id = R.string.dont_have_account),
-                modifier = Modifier
-                    .padding(8.dp)
-                    .clickable {
-                        viewModel.onSignUpClicked()
-                    }
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-            val context = LocalContext.current
-            GroupSocialButtons(
-                color = Color.Black,
-                viewModel = viewModel,
-            )
+            if(isCustomer) {
+                Text(
+                    text = stringResource(id = R.string.dont_have_account),
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            viewModel.onSignUpClicked()
+                        }
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+                GroupSocialButtons(
+                    color = Color.Black,
+                    viewModel = viewModel,
+                )
+            }
         }
     }
 }
@@ -199,5 +201,5 @@ fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hilt
 @Preview(showBackground = true)
 @Composable
 fun PreviewSignUpScreen() {
-    SignInScreen(rememberNavController())
+    SignInScreen(rememberNavController(), false)
 }

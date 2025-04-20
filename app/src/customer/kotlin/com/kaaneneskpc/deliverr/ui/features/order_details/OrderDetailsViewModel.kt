@@ -1,4 +1,4 @@
-package com.kaaneneskpc.deliverr.ui.features.orders.order_details
+package com.kaaneneskpc.deliverr.ui.features.order_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

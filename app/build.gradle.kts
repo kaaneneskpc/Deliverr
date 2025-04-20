@@ -43,6 +43,8 @@ android {
         compose = true
     }
 
+    flavorDimensions += "environment"
+
     productFlavors {
         create("customer") {
             dimension = "environment"
@@ -50,10 +52,12 @@ android {
         create("restaurant") {
             dimension = "environment"
             applicationIdSuffix = ".restaurant"
+            resValue("string", "app_name", "Deliverr Restaurant")
         }
         create("rider") {
             dimension = "environment"
             applicationIdSuffix = ".rider"
+            resValue("string", "app_name", "Deliverr Rider")
         }
 
     }

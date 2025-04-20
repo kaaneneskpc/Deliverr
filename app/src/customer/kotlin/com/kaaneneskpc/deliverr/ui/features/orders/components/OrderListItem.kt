@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
+import com.kaaneneskpc.deliverr.ui.features.order_details.components.OrderDetailsText
 
 @Composable
 fun OrderListItem(order: Order, onClick: () -> Unit) {

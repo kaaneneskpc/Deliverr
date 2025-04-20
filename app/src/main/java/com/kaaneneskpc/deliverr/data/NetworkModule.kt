@@ -18,11 +18,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
     @Provides
-    fun provideClient(session: DeliverrSession): OkHttpClient {
+    fun provideClient(session: DeliverrSession, @ApplicationContext context: Context): OkHttpClient {
         val client = OkHttpClient.Builder()
         client.addInterceptor { chain ->
             val request = chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer ${session.getToken()}")
+                .addHeader("X-Package-Name", context.packageName)
                 .build()
             chain.proceed(request)
         }

@@ -53,7 +53,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthScreen(navController: NavController, viewModel: AuthScreenViewModel = hiltViewModel()) {
+fun AuthScreen(navController: NavController, isCustomer: Boolean, viewModel: AuthScreenViewModel = hiltViewModel()) {
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
     var showDialog by remember { mutableStateOf(false) }
@@ -155,18 +155,20 @@ fun AuthScreen(navController: NavController, viewModel: AuthScreenViewModel = hi
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            GroupSocialButtons(viewModel = viewModel)
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = {
-                    navController.navigate(SignUp)
-                },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray.copy(alpha = 0.2f)),
-                shape = RoundedCornerShape(32.dp),
-                border = BorderStroke(1.dp, Color.White)
-            ) {
-                Text(text = stringResource(id = R.string.sign_with_email), color = Color.White)
+            if (isCustomer) {
+                GroupSocialButtons(viewModel = viewModel)
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = {
+                        navController.navigate(SignUp)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Gray.copy(alpha = 0.2f)),
+                    shape = RoundedCornerShape(32.dp),
+                    border = BorderStroke(1.dp, Color.White)
+                ) {
+                    Text(text = stringResource(id = R.string.sign_with_email), color = Color.White)
+                }
             }
 
             TextButton(onClick = {
@@ -197,5 +199,5 @@ fun AuthScreen(navController: NavController, viewModel: AuthScreenViewModel = hi
 @Preview(showBackground = true)
 @Composable
 fun AuthScreenPreview() {
-    AuthScreen(rememberNavController())
+    AuthScreen(rememberNavController(), false)
 }

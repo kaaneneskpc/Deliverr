@@ -41,7 +41,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.animation.doOnEnd
@@ -57,7 +56,6 @@ import androidx.navigation.toRoute
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
 import com.kaaneneskpc.deliverr.notification.DeliverrMessagingService
-import com.kaaneneskpc.deliverr.notification.DeliverrNotificationManager
 import com.kaaneneskpc.deliverr.ui.features.add_address.AddAddressScreen
 import com.kaaneneskpc.deliverr.ui.features.address_list.AddressListScreen
 import com.kaaneneskpc.deliverr.ui.features.order_success.OrderSuccess
@@ -68,11 +66,10 @@ import com.kaaneneskpc.deliverr.ui.features.cart.CartScreen
 import com.kaaneneskpc.deliverr.ui.features.cart.CartViewModel
 import com.kaaneneskpc.deliverr.ui.features.food_item.FoodDetailsScreen
 import com.kaaneneskpc.deliverr.ui.features.home.HomeScreen
-import com.kaaneneskpc.deliverr.ui.features.home.HomeViewModel
 import com.kaaneneskpc.deliverr.ui.features.notifications.NotificationsList
 import com.kaaneneskpc.deliverr.ui.features.notifications.NotificationsViewModel
 import com.kaaneneskpc.deliverr.ui.features.orders.OrderListScreen
-import com.kaaneneskpc.deliverr.ui.features.orders.order_details.OrderDetailsScreen
+import com.kaaneneskpc.deliverr.ui.features.order_details.OrderDetailsScreen
 import com.kaaneneskpc.deliverr.ui.features.restaurant.RestaurantDetailsScreen
 import com.kaaneneskpc.deliverr.ui.navigation.AddAddress
 import com.kaaneneskpc.deliverr.ui.navigation.AddressList
@@ -264,11 +261,11 @@ class MainActivity : ComponentActivity() {
                             }
                             composable<AuthScreen> {
                                 shouldShowBottomNav.value = false
-                                AuthScreen(navController)
+                                AuthScreen(navController, true)
                             }
                             composable<Login> {
                                 shouldShowBottomNav.value = false
-                                SignInScreen(navController)
+                                SignInScreen(navController, true)
                             }
                             composable<Home> {
                                 shouldShowBottomNav.value = true
