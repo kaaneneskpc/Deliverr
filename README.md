@@ -41,6 +41,21 @@ Deliverr is built using:
 - **Jetpack Compose**: Modern declarative UI framework
 - **Multi-module Structure**: Separate modules for different app variants
 
+### Architecture Diagram
+
+![Architecture Diagram](https://via.placeholder.com/800x500?text=Deliverr+Architecture+Diagram)
+
+The above diagram illustrates the application's architecture, showcasing:
+
+- **Presentation Layer**: UI components (Compose), ViewModels, and UI States
+- **Domain Layer**: Use cases, domain models, and repository interfaces
+- **Data Layer**: Repository implementations, data sources (local and remote)
+- **Common**: Shared utilities, extensions, and base components
+- **Module Relationships**: Dependencies between different modules and components
+- **Data Flow**: How data flows through the system from user actions to data persistence
+
+This architecture follows clean architecture principles with clear separation of concerns, making the codebase maintainable, testable, and scalable.
+
 ## Tech Stack
 
 - **UI**: Jetpack Compose, Material 3 Design, Compose Navigation, Animations
@@ -91,6 +106,21 @@ Deliverr is built using:
 | Home Screen | Restaurant Detail | Cart | Order Tracking |
 |-------------|-------------------|------|---------------|
 | ![Home](https://via.placeholder.com/200?text=Home) | ![Restaurant](https://via.placeholder.com/200?text=Restaurant) | ![Cart](https://via.placeholder.com/200?text=Cart) | ![Tracking](https://via.placeholder.com/200?text=Tracking) |
+
+## Security
+
+Deliverr implements several security measures to protect user data and ensure secure transactions:
+
+- **Data Encryption**: All sensitive data is encrypted using industry-standard encryption protocols
+- **Secure API Communication**: All API communications use HTTPS with certificate pinning
+- **Authentication Security**: Multi-factor authentication options and secure token management
+- **PCI Compliance**: Payment processing follows PCI DSS guidelines
+- **Data Minimization**: Only essential user data is collected and stored
+- **Regular Security Audits**: Continuous security testing and vulnerability assessments
+- **Privacy Controls**: Users have full control over their data sharing preferences
+- **Secure Storage**: Sensitive information is stored using Android's secure storage mechanisms
+- **Input Validation**: All user inputs are validated to prevent injection attacks
+- **Session Management**: Secure session handling with automatic timeouts
 
 ## Future Enhancements
 
