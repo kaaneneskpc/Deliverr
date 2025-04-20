@@ -43,7 +43,8 @@ Deliverr is built using:
 
 ### Architecture Diagram
 
-![Architecture Diagram](https://via.placeholder.com/800x500?text=Deliverr+Architecture+Diagram)
+![Architecture Diagram](https://github.com/user-attachments/assets/b6357e72-6ccf-4dfd-8b71-908f53150d79)
+
 
 The above diagram illustrates the application's architecture, showcasing:
 
