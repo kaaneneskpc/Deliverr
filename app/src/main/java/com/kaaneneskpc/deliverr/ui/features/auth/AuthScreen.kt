@@ -47,7 +47,7 @@ import com.kaaneneskpc.deliverr.common.GroupSocialButtons
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
-import com.kaaneneskpc.deliverr.ui.theme.Orange
+import com.kaaneneskpc.deliverr.ui.theme.Primary
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -116,7 +116,7 @@ fun AuthScreen(navController: NavController, isCustomer: Boolean, viewModel: Aut
                 )
                 .padding(8.dp)
         ) {
-            Text(text = stringResource(id = R.string.skip), color = Orange)
+            Text(text = stringResource(id = R.string.skip), color = Primary)
         }
 
         Column(
@@ -134,7 +134,7 @@ fun AuthScreen(navController: NavController, isCustomer: Boolean, viewModel: Aut
             )
             Text(
                 text = stringResource(id = R.string.food_hub),
-                color = Orange,
+                color = Primary,
                 modifier = Modifier,
                 fontSize = 50.sp,
                 fontWeight = androidx.compose.ui.text.font.FontWeight.Bold

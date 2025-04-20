@@ -55,7 +55,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import com.kaaneneskpc.deliverr.R
 import com.kaaneneskpc.deliverr.ui.features.auth.BaseAuthViewModel
-import com.kaaneneskpc.deliverr.ui.theme.Orange
+import com.kaaneneskpc.deliverr.ui.theme.Primary
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
@@ -167,7 +167,7 @@ fun DeliverrTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = RoundedCornerShape(10.dp),
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors().copy(
-        focusedIndicatorColor = Orange,
+        focusedIndicatorColor = Primary,
         unfocusedIndicatorColor = Color.LightGray.copy(alpha = 0.4f),
     )
 ) {
@@ -228,7 +228,7 @@ fun BasicDialog(title: String, description: String, onClick: () -> Unit) {
             Spacer(modifier = Modifier.size(16.dp))
             Button(
                 onClick = onClick,
-                colors = ButtonDefaults.buttonColors(containerColor = Orange),
+                colors = ButtonDefaults.buttonColors(containerColor = Primary),
                 shape = RoundedCornerShape(16.dp),
 
                 ) {

@@ -48,8 +48,7 @@ import com.kaaneneskpc.deliverr.common.GroupSocialButtons
 import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.SignUp
-import com.kaaneneskpc.deliverr.ui.theme.Orange
-import com.stripe.android.model.Customer
+import com.kaaneneskpc.deliverr.ui.theme.Primary
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -148,7 +147,7 @@ fun SignInScreen(navController: NavController, isCustomer: Boolean, viewModel: S
             Text(text = errorMessage.value ?: "", color = Color.Red)
             Button(
                 onClick = viewModel::onSignInClick, modifier = Modifier.height(48.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Orange)
+                colors = ButtonDefaults.buttonColors(containerColor = Primary)
             ) {
                 Box {
                     AnimatedContent(targetState = loading.value,

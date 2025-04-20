@@ -22,6 +22,7 @@ import com.kaaneneskpc.deliverr.data.models.response.order.OrderListResponse
 import com.kaaneneskpc.deliverr.data.models.response.payment.ConfirmPaymentResponse
 import com.kaaneneskpc.deliverr.data.models.response.payment.PaymentIntentResponse
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItemResponse
+import com.kaaneneskpc.deliverr.data.models.response.restaurant.Restaurant
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.RestaurantsResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -99,4 +100,16 @@ interface FoodApi {
 
     @GET("/notifications")
     suspend fun getNotifications(): Response<NotificationListResponse>
+
+    @GET("/restaurant-owner/profile")
+    suspend fun getRestaurantProfile(): Response<Restaurant>
+
+    @GET("/restaurant-owner/orders")
+    suspend fun getRestaurantOrders(@Query("status") status: String): Response<OrderListResponse>
+
+    @PATCH("orders/{orderId}/status")
+    suspend fun updateOrderStatus(
+        @Path("orderId") orderId: String,
+        @Body map: Map<String, String>
+    ): Response<GenericMessageResponse>
 }

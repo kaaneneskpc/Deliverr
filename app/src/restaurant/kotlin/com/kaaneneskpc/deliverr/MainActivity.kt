@@ -7,7 +7,6 @@ import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
@@ -41,13 +40,14 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.kaaneneskpc.deliverr.common.DeliverrNavHost
 import com.kaaneneskpc.deliverr.data.FoodApi
+import com.kaaneneskpc.deliverr.ui.feature.home.HomeScreen
+import com.kaaneneskpc.deliverr.ui.feature.home.HomeViewModel
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.login.SignInScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.signup.SignUpScreen
@@ -66,10 +66,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -144,6 +142,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val notificationsViewModel: NotificationsViewModel = hiltViewModel()
                 val unreadCount = notificationsViewModel.unreadCount.collectAsStateWithLifecycle()
+                val restaurantHomeViewModel: HomeViewModel = hiltViewModel()
 
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     bottomBar = {
@@ -201,7 +200,7 @@ class MainActivity : ComponentActivity() {
                             }
                             composable<Home> {
                                 shouldShowBottomNav.value = true
-                                RestaurantHomeScreen(navController, this)
+                                HomeScreen(navController)
                             }
                             composable<Notification> {
                                 SideEffect {
@@ -220,16 +219,6 @@ class MainActivity : ComponentActivity() {
             delay(3000)
             showSplashScreen = false
         }
-    }
-}
-
-@Composable
-fun RestaurantHomeScreen(
-    navController: NavController,
-    animatedContentScope: AnimatedContentScope
-) {
-    Box(modifier = Modifier.fillMaxSize()){
-        Text("Restaurant Home")
     }
 }
 

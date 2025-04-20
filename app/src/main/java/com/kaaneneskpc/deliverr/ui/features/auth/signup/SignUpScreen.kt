@@ -48,7 +48,7 @@ import com.kaaneneskpc.deliverr.common.GroupSocialButtons
 import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
 import com.kaaneneskpc.deliverr.ui.navigation.Home
 import com.kaaneneskpc.deliverr.ui.navigation.Login
-import com.kaaneneskpc.deliverr.ui.theme.Orange
+import com.kaaneneskpc.deliverr.ui.theme.Primary
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -155,7 +155,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
             Text(text = errorMessage.value ?: "", color = Color.Red)
             Button(
                 onClick = viewModel::onSignUpClick, modifier = Modifier.height(48.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Orange)
+                colors = ButtonDefaults.buttonColors(containerColor = Primary)
             ) {
                 Box {
                     AnimatedContent(targetState = loading.value,
