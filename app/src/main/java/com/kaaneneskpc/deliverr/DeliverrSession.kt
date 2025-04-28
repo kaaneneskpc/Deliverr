@@ -18,4 +18,16 @@ class DeliverrSession(val context: Context) {
         return null
     }
 
+
+    fun storeRestaurantId(restaurantId: String) {
+        preferences.edit().putString("restaurantId", restaurantId).apply()
+    }
+
+    fun getRestaurantId(): String? {
+        preferences.getString("restaurantId", null)?.let {
+            return it
+        }
+        return null
+    }
+
 }

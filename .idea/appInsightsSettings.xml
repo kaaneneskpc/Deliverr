@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.kaaneneskpc.deliverr.restaurant" />
+                  <option name="mobileSdkAppId" value="1:899122262008:android:770de6b208d39a801b700d" />
+                  <option name="projectId" value="deliverr-2dac2" />
+                  <option name="projectNumber" value="899122262008" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

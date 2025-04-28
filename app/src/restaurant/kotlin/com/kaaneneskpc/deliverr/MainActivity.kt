@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -50,6 +52,9 @@ import com.kaaneneskpc.deliverr.common.DeliverrNavHost
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.ui.feature.home.HomeScreen
 import com.kaaneneskpc.deliverr.ui.feature.home.HomeViewModel
+import com.kaaneneskpc.deliverr.ui.feature.menu.add.AddMenuItemScreen
+import com.kaaneneskpc.deliverr.ui.feature.menu.component.ImagePickerScreen
+import com.kaaneneskpc.deliverr.ui.feature.menu.list.ListMenuItemsScreen
 import com.kaaneneskpc.deliverr.ui.feature.order_details.OrderDetailsScreen
 import com.kaaneneskpc.deliverr.ui.feature.order_list.OrderListScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.AuthScreen
@@ -57,9 +62,12 @@ import com.kaaneneskpc.deliverr.ui.features.auth.login.SignInScreen
 import com.kaaneneskpc.deliverr.ui.features.auth.signup.SignUpScreen
 import com.kaaneneskpc.deliverr.ui.features.notifications.NotificationsList
 import com.kaaneneskpc.deliverr.ui.features.notifications.NotificationsViewModel
+import com.kaaneneskpc.deliverr.ui.navigation.AddMenu
 import com.kaaneneskpc.deliverr.ui.navigation.AuthScreen
 import com.kaaneneskpc.deliverr.ui.navigation.Home
+import com.kaaneneskpc.deliverr.ui.navigation.ImagePicker
 import com.kaaneneskpc.deliverr.ui.navigation.Login
+import com.kaaneneskpc.deliverr.ui.navigation.MenuList
 import com.kaaneneskpc.deliverr.ui.navigation.NavRoute
 import com.kaaneneskpc.deliverr.ui.navigation.Notification
 import com.kaaneneskpc.deliverr.ui.navigation.OrderDetails
@@ -96,6 +104,10 @@ class MainActivity : BaseDeliverrActivity() {
         object Orders : BottomNavItem(
             OrderList,
             R.drawable.orders
+        )
+        object Menu : BottomNavItem(
+            MenuList,
+            R.drawable.menu
         )
     }
 
@@ -143,7 +155,8 @@ class MainActivity : BaseDeliverrActivity() {
                 val navItems = listOf(
                     BottomNavItem.Home,
                     BottomNavItem.Notification,
-                    BottomNavItem.Orders
+                    BottomNavItem.Orders,
+                    BottomNavItem.Menu
                 )
                 val navController = rememberNavController()
                 val notificationsViewModel: NotificationsViewModel = hiltViewModel()
@@ -228,9 +241,22 @@ class MainActivity : BaseDeliverrActivity() {
                                 OrderListScreen(navController)
                             }
                             composable<OrderDetails> {
-                                shouldShowBottomNav.value = true
+                                shouldShowBottomNav.value = false
                                 val orderID = it.toRoute<OrderDetails>().orderId
                                 OrderDetailsScreen(orderID, navController)
+                            }
+
+                            composable<MenuList> {
+                                shouldShowBottomNav.value = true
+                                ListMenuItemsScreen(navController, this)
+                            }
+                            composable<AddMenu> {
+                                shouldShowBottomNav.value = false
+                                AddMenuItemScreen(navController)
+                            }
+                            composable<ImagePicker> {
+                                shouldShowBottomNav.value = false
+                                ImagePickerScreen(navController)
                             }
                         }
                     }

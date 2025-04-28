@@ -16,21 +16,27 @@ import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartResponse
 import com.kaaneneskpc.deliverr.data.models.response.address.Address
 import com.kaaneneskpc.deliverr.data.models.response.address.AddressListResponse
 import com.kaaneneskpc.deliverr.data.models.response.home.CategoriesResponse
+import com.kaaneneskpc.deliverr.data.models.response.menu.FoodItemListResponse
+import com.kaaneneskpc.deliverr.data.models.response.menu.ImageUploadResponse
 import com.kaaneneskpc.deliverr.data.models.response.notification.NotificationListResponse
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
 import com.kaaneneskpc.deliverr.data.models.response.order.OrderListResponse
 import com.kaaneneskpc.deliverr.data.models.response.payment.ConfirmPaymentResponse
 import com.kaaneneskpc.deliverr.data.models.response.payment.PaymentIntentResponse
+import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItemResponse
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.Restaurant
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.RestaurantsResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -112,4 +118,17 @@ interface FoodApi {
         @Path("orderId") orderId: String,
         @Body map: Map<String, String>
     ): Response<GenericMessageResponse>
+
+    @GET("/restaurants/{id}/menu")
+    suspend fun getRestaurantMenu(@Path("id") restaurantId: String): Response<FoodItemListResponse>
+
+    @POST("/restaurants/{id}/menu")
+    suspend fun addRestaurantMenu(
+        @Path("id") restaurantId: String,
+        @Body foodItem: FoodItem
+    ): Response<GenericMessageResponse>
+
+    @POST("/images/upload")
+    @Multipart
+    suspend fun uploadImage(@Part image: MultipartBody.Part): Response<ImageUploadResponse>
 }

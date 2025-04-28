@@ -2,6 +2,7 @@ package com.kaaneneskpc.deliverr.ui.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kaaneneskpc.deliverr.DeliverrSession
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.Restaurant
 import com.kaaneneskpc.deliverr.data.remote.ApiResponse
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val foodApi: FoodApi) : ViewModel() {
+class HomeViewModel @Inject constructor(val foodApi: FoodApi, val deliverrSession: DeliverrSession) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeScreenState>(HomeScreenState.Loading)
     val uiState = _uiState.asStateFlow()
@@ -29,6 +30,7 @@ class HomeViewModel @Inject constructor(val foodApi: FoodApi) : ViewModel() {
             when (response) {
                 is ApiResponse.Success -> {
                     _uiState.value = HomeScreenState.Success(response.data)
+                    deliverrSession.storeRestaurantId(response.data.id)
                 }
 
                 is ApiResponse.Error -> {
