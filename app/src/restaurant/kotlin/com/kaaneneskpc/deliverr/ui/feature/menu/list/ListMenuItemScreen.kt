@@ -24,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -33,6 +34,7 @@ import com.kaaneneskpc.deliverr.ui.features.notifications.components.LoadingScre
 import com.kaaneneskpc.deliverr.ui.navigation.AddMenu
 import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.ui.unit.dp
+import com.kaaneneskpc.deliverr.ui.theme.Primary
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -44,11 +46,13 @@ fun SharedTransitionScope.ListMenuItemsScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
+                containerColor = Primary,
                 onClick = { viewModel.onAddItemClicked() }
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add Item"
+                    contentDescription = "Add Item",
+                    tint = Color.White
                 )
             }
         }
