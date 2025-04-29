@@ -72,6 +72,7 @@ This architecture follows clean architecture principles with clear separation of
 - **Payment Processing**: Stripe
 - **Data Serialization**: Kotlinx Serialization
 - **Push Notifications**: Firebase Cloud Messaging
+- **Storage**: Supabase
 
 ## Project Setup
 
