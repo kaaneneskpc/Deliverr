@@ -268,30 +268,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                                     modifier = Modifier.fillMaxSize(),
                                     contentScale = ContentScale.Crop
                                 )
-
-                                Box(
-                                    modifier = Modifier
-                                        .align(Alignment.Center)
-                                        .size(48.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.LocationOn,
-                                        contentDescription = "Location Pin",
-                                        tint = Primary,
-                                        modifier = Modifier
-                                            .size(48.dp)
-                                            .align(Alignment.Center)
-                                    )
-
-                                    Box(
-                                        modifier = Modifier
-                                            .size(12.dp)
-                                            .align(Alignment.Center)
-                                            .offset(y = 6.dp)
-                                            .background(Color.White, CircleShape)
-                                            .border(2.dp, Primary, CircleShape)
-                                    )
-                                }
                             }
 
                             Text(
