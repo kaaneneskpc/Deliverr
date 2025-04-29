@@ -15,6 +15,7 @@ import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.AddToCartRespon
 import com.kaaneneskpc.deliverr.data.models.response.add_to_cart.CartResponse
 import com.kaaneneskpc.deliverr.data.models.response.address.Address
 import com.kaaneneskpc.deliverr.data.models.response.address.AddressListResponse
+import com.kaaneneskpc.deliverr.data.models.response.deliveries.DeliveriesListResponse
 import com.kaaneneskpc.deliverr.data.models.response.home.CategoriesResponse
 import com.kaaneneskpc.deliverr.data.models.response.menu.FoodItemListResponse
 import com.kaaneneskpc.deliverr.data.models.response.menu.ImageUploadResponse
@@ -131,4 +132,13 @@ interface FoodApi {
     @POST("/images/upload")
     @Multipart
     suspend fun uploadImage(@Part image: MultipartBody.Part): Response<ImageUploadResponse>
+
+    @GET("/rider/deliveries/available")
+    suspend fun getAvailableDeliveries(): Response<DeliveriesListResponse>
+
+    @POST("/rider/deliveries/{orderId}/reject")
+    suspend fun rejectDelivery(@Path("orderId") orderId: String): Response<GenericMessageResponse>
+
+    @POST("/rider/deliveries/{orderId}/accept")
+    suspend fun acceptDelivery(@Path("orderId") orderId: String): Response<GenericMessageResponse>
 }
