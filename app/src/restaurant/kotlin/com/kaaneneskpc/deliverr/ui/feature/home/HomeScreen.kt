@@ -263,7 +263,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                                     )
                             ) {
                                 AsyncImage(
-                                    model = "https://maps.googleapis.com/maps/api/staticmap?center=${restaurant.address}&zoom=15&size=600x300&markers=color:red%7C${restaurant.address}&key=AIzaSyCYKoQ1zFxtwtUQ3u6Rl3jth5HcdlwPjj8",
+                                    model = "https://maps.googleapis.com/maps/api/staticmap?center=${restaurant.address}&zoom=15&size=600x300&markers=color:red%7C${restaurant.address}&key=YOUR_API_KEY",
                                     contentDescription = "Location Map",
                                     modifier = Modifier.fillMaxSize(),
                                     contentScale = ContentScale.Crop
