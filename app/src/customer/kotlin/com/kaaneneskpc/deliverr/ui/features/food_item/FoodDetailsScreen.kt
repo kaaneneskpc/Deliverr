@@ -93,7 +93,7 @@ fun SharedTransitionScope.FoodDetailsScreen(
         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
     ) {
         RestaurantDetailsHeader(imageUrl = foodItem.imageUrl,
-            restaurantID = foodItem.id,
+            restaurantID = foodItem.id.orEmpty(),
             animatedVisibilityScope = animatedVisibilityScope,
             onBackButton = {
                 navController.popBackStack()
@@ -101,7 +101,7 @@ fun SharedTransitionScope.FoodDetailsScreen(
         RestaurantDetails(
             title = foodItem.name,
             description = foodItem.description,
-            restaurantID = foodItem.id,
+            restaurantID = foodItem.id.orEmpty(),
             animatedVisibilityScope = animatedVisibilityScope
         )
         Row(
@@ -126,7 +126,7 @@ fun SharedTransitionScope.FoodDetailsScreen(
         Button(
             onClick = {
                 viewModel.addToCart(
-                    restaurantId = foodItem.restaurantId, foodItemId = foodItem.id
+                    restaurantId = foodItem.restaurantId, foodItemId = foodItem.id.orEmpty()
                 )
             }, enabled = !isLoading.value, modifier = Modifier.padding(8.dp)
         ) {
