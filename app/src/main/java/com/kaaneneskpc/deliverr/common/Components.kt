@@ -76,7 +76,6 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
 
-@SuppressLint("ContextCastToActivity")
 @Composable
 fun GroupSocialButtons(
     color: Color = Color.White,
@@ -109,7 +108,6 @@ fun GroupSocialButtons(
                 color = color
             )
         }
-        val context = LocalContext.current as ComponentActivity
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -117,12 +115,12 @@ fun GroupSocialButtons(
             SocialButton(
                 icon = R.drawable.ic_facebook,
                 title = R.string.sign_with_facebook,
-                onClick = { /* viewModel.onFacebookClicked(context) */ }
+                onClick = { }
             )
             SocialButton(
                 icon = R.drawable.ic_google,
                 title = R.string.sign_with_google,
-                onClick = { /* viewModel.onGoogleClicked(context) */ }
+                onClick = { }
             )
         }
 

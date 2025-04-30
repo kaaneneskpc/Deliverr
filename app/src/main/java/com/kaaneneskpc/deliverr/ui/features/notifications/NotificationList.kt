@@ -33,15 +33,12 @@ fun NotificationsList(navController: NavController, viewModel: NotificationsView
     val state = viewModel.state.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
     
-    // Triggered when the screen is displayed/navigated to
     LaunchedEffect(key1 = Unit) {
         viewModel.getNotifications()
     }
     
-    // Bildirim verileri değiştiğinde en üste kaydır
     LaunchedEffect(state.value) {
         if (state.value is NotificationsViewModel.NotificationsState.Success) {
-            // Yeni bildirimler geldiğinde en üstteki öğeye kaydır
             listState.animateScrollToItem(0)
         }
     }

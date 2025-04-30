@@ -165,7 +165,7 @@ fun SharedTransitionScope.RestaurantDetails(
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
             Spacer(modifier = Modifier.size(8.dp))
-            TextButton(onClick = { /*TODO*/ }) {
+            TextButton(onClick = { }) {
                 Text(
                     text = " View All Reviews",
                     style = MaterialTheme.typography.bodyMedium,

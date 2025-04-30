@@ -53,7 +53,6 @@ class DeliverrMessagingService : FirebaseMessagingService() {
             notificationChannelType
         )
         
-        // Bildirim olayını yayınla - bu, dinleyen ViewModel'lerin güncellemesini sağlayacak
         CoroutineScope(Dispatchers.IO).launch {
             notificationEventBus.publishEvent(NotificationEventBus.NotificationEvent.NewNotificationReceived)
         }

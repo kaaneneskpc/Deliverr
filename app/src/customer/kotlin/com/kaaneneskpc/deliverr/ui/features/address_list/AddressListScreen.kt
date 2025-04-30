@@ -47,7 +47,6 @@ fun AddressListScreen(
 
             when (val addressEvent = it) {
                 is AddressListViewModel.AddressEvent.NavigateToEditAddress -> {
-                    // Navigate to edit address screen
                 }
 
                 is AddressListViewModel.AddressEvent.NavigateToAddAddress -> {
@@ -106,7 +105,6 @@ fun AddressListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    // Show loading
                     CircularProgressIndicator()
                     Text(
                         text = "Loading...",
@@ -136,7 +134,6 @@ fun AddressListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    // Show loading
                     Text(
                         text = addressState.message,
                         style = MaterialTheme.typography.bodyMedium,

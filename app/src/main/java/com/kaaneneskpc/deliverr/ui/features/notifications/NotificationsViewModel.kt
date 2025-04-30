@@ -33,11 +33,10 @@ class NotificationsViewModel @Inject constructor(
     val unreadCount = _unreadCount.asStateFlow()
     
     private var autoRefreshJob: Job? = null
-    private val refreshIntervalMs = 30000L // 30 seconds
+    private val refreshIntervalMs = 30000L
     
     init {
         getNotifications()
-        // Yeni bildirim olaylarını dinle
         listenForNotificationEvents()
     }
     
@@ -46,7 +45,6 @@ class NotificationsViewModel @Inject constructor(
             notificationEventBus.events.collect { event ->
                 when (event) {
                     is NotificationEventBus.NotificationEvent.NewNotificationReceived -> {
-                        // Yeni bildirim geldiğinde sessizce yenile
                         getNotificationsQuietly()
                     }
                 }
@@ -90,7 +88,6 @@ class NotificationsViewModel @Inject constructor(
         }
     }
     
-    // Fetch notifications without showing loading state
     private suspend fun getNotificationsQuietly() {
         val response = safeApiCall { foodApi.getNotifications() }
         if (response is ApiResponse.Success) {
@@ -106,10 +103,10 @@ class NotificationsViewModel @Inject constructor(
             if (response is ApiResponse.Success) {
                 _unreadCount.value = response.data.unreadCount
                 _state.value = NotificationsState.Success(response.data.notifications)
-                startAutoRefresh() // Start auto-refresh after successful load
+                startAutoRefresh()
             } else {
                 _state.value = NotificationsState.Error("Failed to get notifications")
-                stopAutoRefresh() // Stop auto-refresh on error
+                stopAutoRefresh()
             }
         }
     }

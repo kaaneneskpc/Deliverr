@@ -99,7 +99,7 @@ fun SharedTransitionScope.RestaurantList(
                 modifier = Modifier.padding(16.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
-            TextButton(onClick = { /*TODO*/ }) {
+            TextButton(onClick = { }) {
                 Text(text = "View All", style = Typography.bodySmall)
             }
         }

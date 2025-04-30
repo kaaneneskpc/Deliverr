@@ -88,7 +88,6 @@ fun OrderListScreen(navController: NavController, viewModel: OrderListViewModel 
         }
         when (uiState.value) {
             is OrderListViewModel.OrderListState.Loading -> {
-                // Show loading
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -102,7 +101,6 @@ fun OrderListScreen(navController: NavController, viewModel: OrderListViewModel 
             is OrderListViewModel.OrderListState.OrderList -> {
                 val list = (uiState.value as OrderListViewModel.OrderListState.OrderList).orderList
                 if (list.isEmpty()) {
-                    // Show empty
                     Column(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -169,7 +167,6 @@ fun OrderListScreen(navController: NavController, viewModel: OrderListViewModel 
             }
 
             is OrderListViewModel.OrderListState.Error -> {
-                // Show error
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally

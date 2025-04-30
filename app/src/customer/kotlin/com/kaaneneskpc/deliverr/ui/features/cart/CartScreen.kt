@@ -97,8 +97,6 @@ fun CartScreen(navController: NavController, viewModel: CartViewModel = hiltView
                         allowsDelayedPaymentMethods = false,
                     )
 
-                    // Initiate payment
-
                     paymentSheet.presentWithPaymentIntent(
                         it.data.paymentIntentClientSecret,
                         paymentSheetConfig
@@ -172,7 +170,7 @@ fun CartScreen(navController: NavController, viewModel: CartViewModel = hiltView
                 ) {
                     val message = (uiState.value as CartViewModel.CartUiState.Error).message
                     Text(text = message, style = MaterialTheme.typography.bodyMedium)
-                    Button(onClick = { /*TODO*/ }) {
+                    Button(onClick = { }) {
                         Text(text = "Retry")
                     }
 

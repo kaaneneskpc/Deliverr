@@ -108,7 +108,7 @@ fun AuthScreen(navController: NavController, isCustomer: Boolean, viewModel: Aut
         )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { },
             colors = ButtonDefaults.buttonColors(containerColor = Color.White),
             modifier = Modifier
                 .align(
