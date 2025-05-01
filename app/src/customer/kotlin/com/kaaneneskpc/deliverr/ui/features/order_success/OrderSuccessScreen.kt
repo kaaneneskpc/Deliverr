@@ -138,7 +138,6 @@ fun OrderSuccess(orderID: String, navController: NavController) {
                     
                     Spacer(modifier = Modifier.height(32.dp))
                     
-                    // Order Details Card
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
