@@ -10,6 +10,7 @@ data class Order(
     val items: List<OrderItem>,
     val paymentStatus: String,
     val restaurant: Restaurant,
+    val riderId: String? = null,
     val restaurantId: String,
     val status: String,
     val stripePaymentIntentId: String,

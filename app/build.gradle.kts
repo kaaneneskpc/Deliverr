@@ -102,4 +102,5 @@ dependencies {
     implementation(libs.stripe.android)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging.ktx)
+    implementation(libs.android.maps.utils)
 }

@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.0"
+androidMapsUtils = "3.8.2"
 coilCompose = "3.0.4"
 credentials = "1.5.0"
 facebookLogin = "18.0.2"
@@ -30,6 +31,7 @@ stripeAndroid = "21.6.0"
 googleServices = "4.4.2"
 
 [libraries]
+android-maps-utils = { module = "com.google.maps.android:android-maps-utils", version.ref = "androidMapsUtils" }
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
 androidx-credentials-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
