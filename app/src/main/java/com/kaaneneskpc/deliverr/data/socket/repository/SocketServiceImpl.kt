@@ -21,7 +21,7 @@ class SocketServiceImpl @Inject constructor() : SocketService {
     override val messages: Flow<String> = _messages.asStateFlow()
 
     companion object {
-        private const val SOCKET_ADDRESS = "ws://192.168.120.95:8081"
+        private const val SOCKET_ADDRESS = "ws://192.168.1.213:8081"
     }
 
     private fun createURl(

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.home.Category
+import com.kaaneneskpc.deliverr.data.models.response.restaurant.FoodItem
 import com.kaaneneskpc.deliverr.data.models.response.restaurant.Restaurant
 import com.kaaneneskpc.deliverr.data.remote.ApiResponse
 import com.kaaneneskpc.deliverr.data.remote.safeApiCall
@@ -27,13 +28,15 @@ class HomeViewModel @Inject constructor(private val foodApi: FoodApi) : ViewMode
 
     var categories = emptyList<Category>()
     var restaurants = emptyList<Restaurant>()
+    var popularFoodItems = emptyList<FoodItem>()
 
     init {
         viewModelScope.launch {
             categories = getCategories()
             restaurants = getPopularRestaurants()
+            popularFoodItems = getPopularFoodItems()
 
-            if (categories.isNotEmpty() || restaurants.isNotEmpty()) {
+            if (categories.isNotEmpty() || restaurants.isNotEmpty() || popularFoodItems.isNotEmpty()) {
                 _uiState.value = HomeScreenState.Success
             } else {
                 _uiState.value = HomeScreenState.Empty
@@ -75,6 +78,34 @@ class HomeViewModel @Inject constructor(private val foodApi: FoodApi) : ViewMode
         return list
     }
 
+    private suspend fun getPopularFoodItems(): List<FoodItem> {
+        val foodItems: List<FoodItem>
+
+        val restaurantsList = getPopularRestaurants()
+
+        val topRestaurants = restaurantsList.take(3)
+
+        val tempList = mutableListOf<FoodItem>()
+
+        topRestaurants.forEach { restaurant ->
+            val response = safeApiCall {
+                foodApi.getFoodItemForRestaurant(restaurant.id)
+            }
+
+            when (response) {
+                is ApiResponse.Success -> {
+                    val restaurantItems = response.data.foodItems.take(2)
+                    tempList.addAll(restaurantItems)
+                }
+
+                else -> {}
+            }
+        }
+
+        foodItems = tempList
+        return foodItems
+    }
+
     fun onRestaurantSelected(it: Restaurant) {
         viewModelScope.launch {
             _navigationEvent.emit(
@@ -84,6 +115,23 @@ class HomeViewModel @Inject constructor(private val foodApi: FoodApi) : ViewMode
                     it.id
                 )
             )
+        }
+    }
+
+    fun onFoodItemSelected(foodItem: FoodItem) {
+        viewModelScope.launch {
+            foodItem.restaurantId.let { restaurantId ->
+                val selectedRestaurant = restaurants.find { it.id == restaurantId }
+                selectedRestaurant?.let {
+                    _navigationEvent.emit(
+                        HomeScreenNavigationEvents.NavigateToDetail(
+                            it.name,
+                            it.imageUrl,
+                            it.id
+                        )
+                    )
+                }
+            }
         }
     }
 
