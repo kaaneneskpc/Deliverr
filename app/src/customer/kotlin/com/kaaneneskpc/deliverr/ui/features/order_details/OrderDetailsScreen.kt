@@ -95,10 +95,7 @@ fun OrderDetailsScreen(
                     }
                     is OrderDetailsViewModel.OrderDetailsState.OrderDetails -> {
                         val order = (uiState.value as OrderDetailsViewModel.OrderDetailsState.OrderDetails).order
-                        OrderDetailsContent(order = order, statusIcon = viewModel.getImage(order))
-                        if (order.status == OrdersUtils.OrderStatus.OUT_FOR_DELIVERY.name) {
-                            OrderTrackerMapView(modifier = Modifier, viewModel = viewModel, order = order)
-                        }
+                        OrderDetailsContent(order = order, statusIcon = viewModel.getImage(order), viewModel = viewModel)
                     }
                     is OrderDetailsViewModel.OrderDetailsState.Error -> {
                         ErrorState(
@@ -215,7 +212,7 @@ private fun ErrorState(errorMessage: String, onRetry: () -> Unit) {
 }
 
 @Composable
-private fun OrderDetailsContent(order: Order, statusIcon: Int) {
+private fun OrderDetailsContent(order: Order, statusIcon: Int, viewModel: OrderDetailsViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -362,6 +359,33 @@ private fun OrderDetailsContent(order: Order, statusIcon: Int) {
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
                         )
                     }
+                }
+            }
+        }
+        
+        if (order.status == OrdersUtils.OrderStatus.OUT_FOR_DELIVERY.name) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .height(300.dp),
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    SectionTitle(title = "Live Tracking")
+                    
+                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    OrderTrackerMapView(
+                        modifier = Modifier.fillMaxSize(),
+                        viewModel = viewModel,
+                        order = order
+                    )
                 }
             }
         }
