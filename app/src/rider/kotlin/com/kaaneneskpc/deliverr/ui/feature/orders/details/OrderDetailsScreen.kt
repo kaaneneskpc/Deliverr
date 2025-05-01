@@ -22,6 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.kaaneneskpc.deliverr.ui.features.notifications.components.ErrorScreen
 import com.kaaneneskpc.deliverr.ui.features.notifications.components.LoadingScreen
+import com.kaaneneskpc.deliverr.ui.features.orders.orderMap.OrderTrackerMapView
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -97,6 +98,11 @@ fun OrderDetailsScreen(
                         }
                     }
                 }
+            }
+
+            is OrderDetailsViewModel.OrderDetailsUiState.OrderDelivery -> {
+                val order = (uiState.value as OrderDetailsViewModel.OrderDetailsUiState.OrderDelivery).order
+                OrderTrackerMapView(modifier = Modifier.fillMaxWidth(), viewModel, order)
             }
         }
 

@@ -7,6 +7,9 @@ import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
 import com.kaaneneskpc.deliverr.data.remote.ApiResponse
 import com.kaaneneskpc.deliverr.data.remote.safeApiCall
+import com.kaaneneskpc.deliverr.data.socket.repository.LocationUpdateBaseRepository
+import com.kaaneneskpc.deliverr.ui.features.orders.OrderDetailsBaseViewModel
+import com.kaaneneskpc.deliverr.util.OrdersUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +19,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderDetailsViewModel @Inject constructor(private val foodApi: FoodApi) : ViewModel() {
+class OrderDetailsViewModel @Inject constructor(
+    private val foodApi: FoodApi, repository: LocationUpdateBaseRepository
+) : OrderDetailsBaseViewModel(repository) {
 
     private val _state = MutableStateFlow<OrderDetailsState>(OrderDetailsState.Loading)
     val state get() = _state.asStateFlow()
@@ -32,6 +37,18 @@ class OrderDetailsViewModel @Inject constructor(private val foodApi: FoodApi) : 
             when (result) {
                 is ApiResponse.Success -> {
                     _state.value = OrderDetailsState.OrderDetails(result.data)
+
+                    if (result.data.status == OrdersUtils.OrderStatus.OUT_FOR_DELIVERY.name) {
+                        result.data.riderId?.let {
+                            connectSocket(orderId, it)
+                        }
+                    } else {
+                        if (result.data.status == OrdersUtils.OrderStatus.DELIVERED.name
+                            || result.data.status == OrdersUtils.OrderStatus.CANCELLED.name
+                            || result.data.status == OrdersUtils.OrderStatus.REJECTED.name) {
+                            disconnectSocket()
+                        }
+                    }
                 }
 
                 is ApiResponse.Error -> {

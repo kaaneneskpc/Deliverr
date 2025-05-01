@@ -1,9 +1,13 @@
-package com.kaaneneskpc.deliverr.data
+package com.kaaneneskpc.deliverr.di
 
 import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kaaneneskpc.deliverr.DeliverrSession
+import com.kaaneneskpc.deliverr.data.FoodApi
+import com.kaaneneskpc.deliverr.data.location.LocationManager
+import com.kaaneneskpc.deliverr.data.socket.SocketService
+import com.kaaneneskpc.deliverr.data.socket.repository.SocketServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,5 +59,18 @@ object NetworkModule {
     @Provides
     fun provideLocationService(@ApplicationContext context: Context): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(context)
+    }
+
+    @Provides
+    fun provideLocationManager(
+        fusedLocationProviderClient: FusedLocationProviderClient,
+        @ApplicationContext context: Context
+    ): LocationManager {
+        return LocationManager(fusedLocationProviderClient, context)
+    }
+
+    @Provides
+    fun provideSocketService(): SocketService {
+        return SocketServiceImpl()
     }
 }

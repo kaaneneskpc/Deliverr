@@ -15,10 +15,13 @@ import okhttp3.WebSocketListener
 import javax.inject.Inject
 
 class SocketServiceImpl @Inject constructor() : SocketService {
+
     private var webSocket: WebSocket? = null
+    private val _messages = MutableStateFlow("")
+    override val messages: Flow<String> = _messages.asStateFlow()
 
     companion object {
-        private const val SOCKET_ADDRESS = "ws://10.0.2.2:8080"
+        private const val SOCKET_ADDRESS = "ws://192.168.120.95:8081"
     }
 
     private fun createURl(
@@ -79,8 +82,5 @@ class SocketServiceImpl @Inject constructor() : SocketService {
     override fun sendMessage(message: String) {
         webSocket?.send(message)
     }
-
-    private val _messages = MutableStateFlow("")
-    override val messages: Flow<String> = _messages.asStateFlow()
 
 }

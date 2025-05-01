@@ -45,8 +45,10 @@ import coil3.compose.AsyncImage
 import com.kaaneneskpc.deliverr.R
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
 import com.kaaneneskpc.deliverr.data.models.response.order.OrderItem
+import com.kaaneneskpc.deliverr.ui.features.orders.orderMap.OrderTrackerMapView
 import com.kaaneneskpc.deliverr.ui.theme.Mustard
 import com.kaaneneskpc.deliverr.ui.theme.Primary
+import com.kaaneneskpc.deliverr.util.OrdersUtils
 import com.kaaneneskpc.deliverr.util.StringUtils
 import kotlinx.coroutines.flow.collectLatest
 
@@ -94,6 +96,9 @@ fun OrderDetailsScreen(
                     is OrderDetailsViewModel.OrderDetailsState.OrderDetails -> {
                         val order = (uiState.value as OrderDetailsViewModel.OrderDetailsState.OrderDetails).order
                         OrderDetailsContent(order = order, statusIcon = viewModel.getImage(order))
+                        if (order.status == OrdersUtils.OrderStatus.OUT_FOR_DELIVERY.name) {
+                            OrderTrackerMapView(modifier = Modifier, viewModel = viewModel, order = order)
+                        }
                     }
                     is OrderDetailsViewModel.OrderDetailsState.Error -> {
                         ErrorState(

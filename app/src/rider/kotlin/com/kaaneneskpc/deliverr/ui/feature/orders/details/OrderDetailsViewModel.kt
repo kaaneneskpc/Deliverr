@@ -5,7 +5,7 @@ import com.kaaneneskpc.deliverr.data.FoodApi
 import com.kaaneneskpc.deliverr.data.models.response.order.Order
 import com.kaaneneskpc.deliverr.data.remote.ApiResponse
 import com.kaaneneskpc.deliverr.data.remote.safeApiCall
-import com.kaaneneskpc.deliverr.data.socket.repository.CustomerLocationUpdateSocketRepository
+import com.kaaneneskpc.deliverr.data.socket.repository.LocationUpdateSocketRepository
 import com.kaaneneskpc.deliverr.ui.features.orders.OrderDetailsBaseViewModel
 import com.kaaneneskpc.deliverr.utils.OrdersUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class OrderDetailsViewModel @Inject constructor(val foodApi: FoodApi, repository: CustomerLocationUpdateSocketRepository) : OrderDetailsBaseViewModel(repository) {
+class OrderDetailsViewModel @Inject constructor(val foodApi: FoodApi, repository: LocationUpdateSocketRepository) : OrderDetailsBaseViewModel(repository) {
 
     val listOfStatus = OrdersUtils.OrderStatus.entries.map { it.name }
 
