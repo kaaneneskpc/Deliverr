@@ -108,9 +108,31 @@ This architecture follows clean architecture principles with clear separation of
 
 ## Screenshots
 
-| Home Screen | Restaurant Detail | Cart | Order Tracking |
-|-------------|-------------------|------|---------------|
-| ![Home](https://via.placeholder.com/200?text=Home) | ![Restaurant](https://via.placeholder.com/200?text=Restaurant) | ![Cart](https://via.placeholder.com/200?text=Cart) | ![Tracking](https://via.placeholder.com/200?text=Tracking) |
+### Customer App
+
+| Onboarding | Authentication | Home | Restaurant Detail |
+|------------|----------------|------|-------------------|
+| ![Onboarding](https://github.com/user-attachments/assets/onboarding.jpg) | ![Authentication](https://github.com/user-attachments/assets/auth.jpg) | ![Home](https://github.com/user-attachments/assets/home.jpg) | ![Restaurant](https://github.com/user-attachments/assets/restaurant.jpg) |
+
+| Food Item | Cart | Address Management | Order Confirmation |
+|-----------|------|-------------------|-------------------|
+| ![Food Item](https://github.com/user-attachments/assets/food_item.jpg) | ![Cart](https://github.com/user-attachments/assets/cart.jpg) | ![Address](https://github.com/user-attachments/assets/address.jpg) | ![Order Confirm](https://github.com/user-attachments/assets/order_confirm.jpg) |
+
+| Order Tracking | Order History | Order Details | Notifications |
+|----------------|---------------|--------------|---------------|
+| ![Tracking](https://github.com/user-attachments/assets/tracking.jpg) | ![History](https://github.com/user-attachments/assets/history.jpg) | ![Details](https://github.com/user-attachments/assets/order_details.jpg) | ![Notifications](https://github.com/user-attachments/assets/notifications.jpg) |
+
+### Restaurant App
+
+| Dashboard | Order Management | Menu Management | Analytics |
+|-----------|------------------|----------------|-----------|
+| ![Dashboard](https://github.com/user-attachments/assets/restaurant_dashboard.jpg) | ![Orders](https://github.com/user-attachments/assets/restaurant_orders.jpg) | ![Menu](https://github.com/user-attachments/assets/restaurant_menu.jpg) | ![Analytics](https://github.com/user-attachments/assets/restaurant_analytics.jpg) |
+
+### Rider App
+
+| Available Orders | Navigation | Delivery Status | Earnings |
+|------------------|------------|----------------|----------|
+| ![Available](https://github.com/user-attachments/assets/rider_available.jpg) | ![Navigation](https://github.com/user-attachments/assets/rider_navigation.jpg) | ![Status](https://github.com/user-attachments/assets/rider_status.jpg) | ![Earnings](https://github.com/user-attachments/assets/rider_earnings.jpg) |
 
 ## Security
 
