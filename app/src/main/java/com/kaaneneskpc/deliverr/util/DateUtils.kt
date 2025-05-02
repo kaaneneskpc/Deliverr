@@ -5,13 +5,13 @@ import java.util.Date
 import java.util.Locale
 
 object DateUtils {
-    
+
     /**
-     * ISO 8601 formatındaki bir tarih stringini kullanıcı dostu formata dönüştürür
-     * 
-     * @param isoDateString ISO 8601 formatında tarih string'i (örn: "2023-05-15T14:30:45.123Z")
-     * @param outputPattern Çıktı için kullanılacak tarih formatı (varsayılan: "MMM dd, HH:mm")
-     * @return Formatlanmış tarih string'i veya hata durumunda orijinal string
+     * Converts a date string in ISO 8601 format to a user-friendly format
+     *
+     * @param isoDateString Date string in ISO 8601 format (ex: “2023-05-15T14:30:45.123Z”)
+     * @param outputPattern Date format to use for output (default: “MMM dd, HH:mm”)
+     * @return Formatted date string or original string in case of error
      */
     fun formatISODate(
         isoDateString: String, 
@@ -26,12 +26,12 @@ object DateUtils {
             isoDateString
         }
     }
-    
+
     /**
-     * ISO 8601 formatındaki bir tarih stringini Date nesnesine dönüştürür
-     * 
-     * @param isoDateString ISO 8601 formatında tarih string'i
-     * @return Date nesnesi veya hata durumunda şu anki zaman
+     * Converts a date string in ISO 8601 format to a Date object
+     *
+     * @param isoDateString Date string in ISO 8601 format
+     * @return Date object or current time in case of error
      */
     fun parseISODate(isoDateString: String): Date {
         return try {
@@ -41,13 +41,13 @@ object DateUtils {
             Date()
         }
     }
-    
+
     /**
-     * Date nesnesini belirtilen formatta string'e dönüştürür
-     * 
-     * @param date Dönüştürülecek Date nesnesi
-     * @param pattern Çıktı formatı
-     * @return Formatlanmış tarih string'i
+     * Converts the Date object to string in the specified format
+     *
+     * @param date Date object to convert
+     * @param pattern Output format
+     * @return Formatted date string
      */
     fun formatDate(date: Date, pattern: String = "MMM dd, HH:mm"): String {
         val outputFormat = SimpleDateFormat(pattern, Locale.getDefault())

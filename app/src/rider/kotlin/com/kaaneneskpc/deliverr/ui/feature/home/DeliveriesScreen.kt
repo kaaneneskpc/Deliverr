@@ -206,7 +206,7 @@ fun EmptyDeliveriesView() {
                 Spacer(modifier = Modifier.height(16.dp))
                 
                 OutlinedButton(
-                    onClick = { /* Refresh action */ },
+                    onClick = {},
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Primary
