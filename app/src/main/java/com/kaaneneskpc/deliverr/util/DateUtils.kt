@@ -23,7 +23,6 @@ object DateUtils {
             val outputFormat = SimpleDateFormat(outputPattern, Locale.getDefault())
             outputFormat.format(date ?: Date())
         } catch (e: Exception) {
-            // Hata durumunda orijinal string'i dön
             isoDateString
         }
     }

@@ -239,7 +239,6 @@ fun DeliveryOrderCard(order: DeliveryOrder, onClick: () -> Unit) {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Header with Order ID and Status
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -309,8 +308,7 @@ fun DeliveryOrderCard(order: DeliveryOrder, onClick: () -> Unit) {
             )
             
             Spacer(modifier = Modifier.height(8.dp))
-            
-            // Items summary
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End

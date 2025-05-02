@@ -64,7 +64,6 @@ open class LocationUpdateSocketRepository @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        // disconnect from socket
     }
 
     fun sendMessage(message: String) {

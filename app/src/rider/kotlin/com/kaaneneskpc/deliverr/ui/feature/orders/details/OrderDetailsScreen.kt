@@ -211,7 +211,6 @@ private fun OrderDetailsContent(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Order ID Card
         ElevatedCard(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
@@ -252,7 +251,6 @@ private fun OrderDetailsContent(
             }
         }
 
-        // Restaurant Info Card
         ElevatedCard(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),

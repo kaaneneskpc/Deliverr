@@ -66,7 +66,6 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
         when (uiState.value) {
 
             is SignUpViewModel.SignupEvent.Error -> {
-                // show error
                 loading.value = false
                 errorMessage.value = "Failed"
             }

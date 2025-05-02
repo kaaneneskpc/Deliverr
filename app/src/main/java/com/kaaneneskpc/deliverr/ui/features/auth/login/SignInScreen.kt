@@ -65,7 +65,6 @@ fun SignInScreen(navController: NavController, isCustomer: Boolean, viewModel: S
         when (uiState.value) {
 
             is SignInViewModel.SignInEvent.Error -> {
-                // show error
                 loading.value = false
                 errorMessage.value = "Failed"
             }

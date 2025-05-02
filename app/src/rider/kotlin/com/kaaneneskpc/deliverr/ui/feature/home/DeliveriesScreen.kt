@@ -137,8 +137,7 @@ fun DeliveriesScreen(
                                         onDecline = { viewModel.deliveryRejected(delivery) }
                                     )
                                 }
-                                
-                                // Bottom padding
+
                                 item {
                                     Spacer(modifier = Modifier.height(80.dp))
                                 }
@@ -245,7 +244,6 @@ fun DeliveryCard(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Restaurant Icon
                 Box(
                     modifier = Modifier
                         .size(40.dp)
