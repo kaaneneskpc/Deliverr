@@ -110,19 +110,10 @@ This architecture follows clean architecture principles with clear separation of
 
 ### Customer App
 
-| Onboarding | Authentication | Home | Restaurant Detail |
-|------------|----------------|------|-------------------|
-| ![Onboarding](https://github.com/user-attachments/assets/onboarding.jpg) | ![Authentication](https://github.com/user-attachments/assets/auth.jpg) | ![Home](https://github.com/user-attachments/assets/home.jpg) | ![Restaurant](https://github.com/user-attachments/assets/restaurant.jpg) |
-
-| Food Item | Cart | Address Management | Order Confirmation |
-|-----------|------|-------------------|-------------------|
-| ![Food Item](https://github.com/user-attachments/assets/food_item.jpg) | ![Cart](https://github.com/user-attachments/assets/cart.jpg) | ![Address](https://github.com/user-attachments/assets/address.jpg) | ![Order Confirm](https://github.com/user-attachments/assets/order_confirm.jpg) |
-
-| Order Tracking | Order History | Order Details | Notifications |
-|----------------|---------------|--------------|---------------|
-| ![Tracking](https://github.com/user-attachments/assets/tracking.jpg) | ![History](https://github.com/user-attachments/assets/history.jpg) | ![Details](https://github.com/user-attachments/assets/order_details.jpg) | ![Notifications](https://github.com/user-attachments/assets/notifications.jpg) |
+ <img src="https://github.com/user-attachments/assets/b9bab37a-2e8e-4c57-ba71-fc4978d92cb8" height = "600px"/> | <img src="https://github.com/user-attachments/assets/ac2cd4e4-b308-4198-9788-f2770671f922" height = "600px"/> | <img src="https://github.com/user-attachments/assets/ab92e7a7-f7ed-4c55-8a74-31ce45550e28" height = "600px"/> | <img src="https://github.com/user-attachments/assets/e1943d05-e915-4c21-a5e8-063507500ad4" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/88589d4b-2aba-4e99-a5cd-198164261682" height = "600px"/>  | <img src="https://github.com/user-attachments/assets/919e89c5-79c4-4b3f-a57c-8202f5f5161c" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/37b9a2eb-f592-4bd7-be0b-ff31da32a388" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/34fbe28e-aaeb-42a0-abee-79be0cdef40b" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/07e3b70a-1e9b-4253-8060-10a7d55ea7db" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/534af424-7e49-4c41-ba1b-99b391db7a2e" height = "600px"/>
 
 ### Restaurant App
+
 
 | Dashboard | Order Management | Menu Management | Analytics |
 |-----------|------------------|----------------|-----------|
