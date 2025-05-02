@@ -114,12 +114,11 @@ This architecture follows clean architecture principles with clear separation of
 
 ### Restaurant App
 
+ <img src="https://github.com/user-attachments/assets/b26b16ef-d4c5-4f08-a14a-737e14d8c9c7" height = "600px"/> | <img src="https://github.com/user-attachments/assets/d6c0b762-890b-49c8-8a75-910151cc3d22" height = "600px"/> | <img src="https://github.com/user-attachments/assets/3139d603-5a7f-41f9-be8e-0eeee1e08650" height = "600px"/> | <img src="https://github.com/user-attachments/assets/854dd37a-c651-4d45-985b-586dc33d484f" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/69837c34-f15d-47e8-b7ff-a259a04e6cbc" height = "600px"/>  | <img src="https://github.com/user-attachments/assets/269df9e8-9d4b-44b0-b159-48aa124f2e64" height = "600px"/> 
 
-| Dashboard | Order Management | Menu Management | Analytics |
-|-----------|------------------|----------------|-----------|
-| ![Dashboard](https://github.com/user-attachments/assets/restaurant_dashboard.jpg) | ![Orders](https://github.com/user-attachments/assets/restaurant_orders.jpg) | ![Menu](https://github.com/user-attachments/assets/restaurant_menu.jpg) | ![Analytics](https://github.com/user-attachments/assets/restaurant_analytics.jpg) |
 
 ### Rider App
+
 
 | Available Orders | Navigation | Delivery Status | Earnings |
 |------------------|------------|----------------|----------|
