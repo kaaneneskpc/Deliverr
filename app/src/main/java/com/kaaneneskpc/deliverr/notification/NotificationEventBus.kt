@@ -5,10 +5,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Uygulama içinde bildirim olaylarını paylaşmak için kullanılan event bus.
- * FCM servisi ve ViewModel arasında iletişim sağlar.
- */
 @Singleton
 class NotificationEventBus @Inject constructor() {
     
