@@ -116,13 +116,9 @@ This architecture follows clean architecture principles with clear separation of
 
  <img src="https://github.com/user-attachments/assets/b26b16ef-d4c5-4f08-a14a-737e14d8c9c7" height = "600px"/> | <img src="https://github.com/user-attachments/assets/d6c0b762-890b-49c8-8a75-910151cc3d22" height = "600px"/> | <img src="https://github.com/user-attachments/assets/3139d603-5a7f-41f9-be8e-0eeee1e08650" height = "600px"/> | <img src="https://github.com/user-attachments/assets/854dd37a-c651-4d45-985b-586dc33d484f" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/69837c34-f15d-47e8-b7ff-a259a04e6cbc" height = "600px"/>  | <img src="https://github.com/user-attachments/assets/269df9e8-9d4b-44b0-b159-48aa124f2e64" height = "600px"/> 
 
-
 ### Rider App
 
-
-| Available Orders | Navigation | Delivery Status | Earnings |
-|------------------|------------|----------------|----------|
-| ![Available](https://github.com/user-attachments/assets/rider_available.jpg) | ![Navigation](https://github.com/user-attachments/assets/rider_navigation.jpg) | ![Status](https://github.com/user-attachments/assets/rider_status.jpg) | ![Earnings](https://github.com/user-attachments/assets/rider_earnings.jpg) |
+ <img src="https://github.com/user-attachments/assets/57a71bf6-9494-4a1b-8ff5-91cd2e34654a" height = "600px"/> | <img src="https://github.com/user-attachments/assets/b6127673-eb83-47c6-94ed-b51a6268ad53" height = "600px"/> | <img src="https://github.com/user-attachments/assets/af85dd01-4df4-4922-8cdb-061b11796e62" height = "600px"/> | <img src="https://github.com/user-attachments/assets/d51a0dfd-43c9-456c-a03c-7c66e4264473" height = "600px"/> |  <img src="https://github.com/user-attachments/assets/802d72ca-8ebb-404a-baee-f087c5ab777a" height = "600px"/>
 
 ## Security
 
